@@ -1,0 +1,2 @@
+# ParadigmasNota3
+AEHO
