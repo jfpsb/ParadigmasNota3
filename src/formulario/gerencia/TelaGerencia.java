@@ -6,21 +6,22 @@ import java.beans.PropertyVetoException;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import excecoes.TelaAbertaException;
-import formulario.gerencia.filmes.TelaFilmesControles;
-import formulario.gerencia.funcionarios.TelaFuncionariosControles;
-import formulario.gerencia.sala.TelaSalaControles;
-import formulario.gerencia.sessao.TelaSessaoControles;
+import formulario.gerencia.filmes.TelaFilme;
+import formulario.gerencia.funcionarios.TelaFuncionario;
+import formulario.gerencia.sala.TelaSala;
+import formulario.gerencia.sessao.TelaSessao;
 
 public class TelaGerencia extends TelaGerenciaControles {
 	private static final long serialVersionUID = 1L;
 
-	TelaFilmesControles telaFilmes;
-	TelaFuncionariosControles telaFuncionarios;
-	TelaSalaControles telaSala;
-	TelaSessaoControles telaSessao;
+	TelaFilme telaFilme;
+	TelaFuncionario telaFuncionario;
+	TelaSala telaSala;
+	TelaSessao telaSessao;
 
 	private JDialog owner = this;
 
@@ -36,15 +37,15 @@ public class TelaGerencia extends TelaGerenciaControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					checaTelaAberta();
+					checaTelaAberta(telaFilme);
 
-					telaFilmes = new TelaFilmesControles();
+					telaFilme = new TelaFilme();
 
-					desktopPane.add(telaFilmes);
+					desktopPane.add(telaFilme);
 
-					telaFilmes.setMaximum(true); // Coloca tela maximizada
+					telaFilme.setMaximum(true); // Coloca tela maximizada
 
-					telaFilmes.mostrarTela();
+					telaFilme.mostrarTela();
 				} catch (PropertyVetoException e1) {
 					JOptionPane.showMessageDialog(owner,
 							"Erro ao abrir tela de opções de filmes. Não foi possível maximizar tela. "
@@ -62,15 +63,15 @@ public class TelaGerencia extends TelaGerenciaControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					checaTelaAberta();
+					checaTelaAberta(telaFuncionario);
 
-					telaFuncionarios = new TelaFuncionariosControles();
+					telaFuncionario = new TelaFuncionario();
 
-					desktopPane.add(telaFuncionarios);
+					desktopPane.add(telaFuncionario);
 
-					telaFuncionarios.setMaximum(true);
+					telaFuncionario.setMaximum(true);
 
-					telaFuncionarios.mostrarTela();
+					telaFuncionario.mostrarTela();
 				} catch (PropertyVetoException e1) {
 					JOptionPane.showMessageDialog(owner,
 							"Erro ao abrir tela de opções de funcionários. Não foi possível maximizar tela. "
@@ -88,9 +89,9 @@ public class TelaGerencia extends TelaGerenciaControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					checaTelaAberta();
+					checaTelaAberta(telaSala);
 
-					telaSala = new TelaSalaControles();
+					telaSala = new TelaSala();
 
 					desktopPane.add(telaSala);
 
@@ -114,9 +115,9 @@ public class TelaGerencia extends TelaGerenciaControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					checaTelaAberta();
+					checaTelaAberta(telaSessao);
 
-					telaSessao = new TelaSessaoControles();
+					telaSessao = new TelaSessao();
 
 					desktopPane.add(telaSessao);
 
@@ -137,22 +138,12 @@ public class TelaGerencia extends TelaGerenciaControles {
 	}
 
 	/**
-	 * Checa se há alguma tela aberta no momento. Se sim, é lançada a exceção.
+	 * Checa se a tela está aberta no momento. Se sim, é lançada a exceção.
 	 * 
 	 * @throws TelaAbertaException
 	 */
-	private void checaTelaAberta() throws TelaAbertaException {
-
-		if (telaFilmes != null && telaFilmes.isVisible())
-			throw new TelaAbertaException("A tela de filmes está aberta. Feche-a antes para poder continuar.");
-
-		if (telaFuncionarios != null && telaFuncionarios.isVisible())
-			throw new TelaAbertaException("A tela de funcionários está aberta. Feche-a antes para poder continuar.");
-
-		if (telaSala != null && telaSala.isVisible())
-			throw new TelaAbertaException("A tela de salas está aberta. Feche-a antes para poder continuar.");
-
-		if (telaSessao != null && telaSessao.isVisible())
-			throw new TelaAbertaException("A tela de sessões está aberta. Feche-a antes para poder continuar.");
+	private void checaTelaAberta(JInternalFrame internalFrame) throws TelaAbertaException {
+		if (internalFrame != null && (internalFrame.isVisible() || internalFrame.isDisplayable()))
+			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
 }
