@@ -1,6 +1,6 @@
 package aplicacao;
 
-import formulario.TelaPrincipal;
+import formulario.telaprincipal.TelaPrincipal;
 
 public class Programa {
 

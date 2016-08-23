@@ -1,8 +1,9 @@
-package formulario;
+package formulario.telaprincipal;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -11,32 +12,29 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 /**
- * Primeira tela da aplicação.
+ * Instancia e configura controles da tela principal da aplicação.
  * 
  * @author jfpsb
  *
  */
-public class TelaPrincipal extends JFrame {
-	/**
-	 * 
-	 */
+public class TelaPrincipalControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelPrincipal;
 	private JPanel panelMenuEsquerda;
+	private JPanel panelMenuEsquerda2;
 	private JLabel lblOpcoes;
 	private JLabel lblCinemaParadigmas;
-	private JButton btnVendas;
-	private JButton btnFilmes;
-	private JButton btnFuncionarios;
-	private JButton btnClientes;
+	protected JButton btnGerencia;
+	protected JButton btnVendas;
 
 	/**
 	 * Chama o método que inicializa os componentes da UI.
 	 */
-	public TelaPrincipal() {
+	public TelaPrincipalControles() {
 		super("Cinema Paradigmas");
 		inicializarControles();
 	}
@@ -46,13 +44,12 @@ public class TelaPrincipal extends JFrame {
 	 */
 	private void inicializarControles() {
 		panelPrincipal = new JPanel(new BorderLayout());
-		panelMenuEsquerda = new JPanel(new GridLayout(5, 1, 3, 3));
+		panelMenuEsquerda = new JPanel();
+		panelMenuEsquerda2 = new JPanel(new GridLayout(2, 1, 10, 10));
 		lblOpcoes = new JLabel("Opções", SwingConstants.CENTER);
 		lblCinemaParadigmas = new JLabel("Cinema Paradigmas", SwingConstants.CENTER);
 		btnVendas = new JButton("Venda De Ingressos");
-		btnFilmes = new JButton("Filmes");
-		btnFuncionarios = new JButton("Funcionários");
-		btnClientes = new JButton("Clientes");
+		btnGerencia = new JButton("Gerência");
 
 		// lblOpcoes
 		lblOpcoes.setFont(lblOpcoes.getFont().deriveFont(24F));
@@ -61,25 +58,22 @@ public class TelaPrincipal extends JFrame {
 		lblCinemaParadigmas.setFont(lblCinemaParadigmas.getFont().deriveFont(64F));
 
 		// btnVendas
-		btnVendas.setFont(btnVendas.getFont().deriveFont(20F));
+		btnVendas.setFont(btnVendas.getFont().deriveFont(26F));
+		btnVendas.setPreferredSize(new Dimension(300, 150));
 
 		// btnFilmes
-		btnFilmes.setFont(btnFilmes.getFont().deriveFont(20F));
+		btnGerencia.setFont(btnGerencia.getFont().deriveFont(26F));
 
-		// btnFuncionarios
-		btnFuncionarios.setFont(btnFuncionarios.getFont().deriveFont(20F));
-
-		// btnClientes
-		btnClientes.setFont(btnClientes.getFont().deriveFont(20F));
+		// panelMenuEsquerda2
+		panelMenuEsquerda2.add(btnVendas);
+		panelMenuEsquerda2.add(btnGerencia);
+		panelMenuEsquerda2.setBackground(new Color(204, 255, 255));
 
 		// panelMenuEsquerda
-		panelMenuEsquerda.add(lblOpcoes);
-		panelMenuEsquerda.add(btnVendas);
-		panelMenuEsquerda.add(btnFilmes);
-		panelMenuEsquerda.add(btnFuncionarios);
-		panelMenuEsquerda.add(btnClientes);
+		panelMenuEsquerda.setBorder(BorderFactory.createTitledBorder("Opções"));
+		((TitledBorder) panelMenuEsquerda.getBorder()).setTitleFont(new Font("Arial", Font.BOLD, 24));
 		panelMenuEsquerda.setBackground(new Color(204, 255, 255));
-		panelMenuEsquerda.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		panelMenuEsquerda.add(panelMenuEsquerda2);
 
 		// panelPrincipal
 		panelPrincipal.setBackground(new Color(204, 255, 255));
@@ -88,7 +82,7 @@ public class TelaPrincipal extends JFrame {
 
 		// telaPrincipal
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setMinimumSize(new Dimension(900, 360));
+		this.setMinimumSize(new Dimension(1000, 395));
 		this.pack();
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.add(panelPrincipal);
