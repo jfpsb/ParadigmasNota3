@@ -3,8 +3,6 @@ package formulario.telaprincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-
 import formulario.gerencia.TelaGerencia;
 
 /**
@@ -14,8 +12,6 @@ import formulario.gerencia.TelaGerencia;
  *
  */
 public class TelaPrincipal extends TelaPrincipalControles {
-
-	private JFrame owner = this;
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +32,7 @@ public class TelaPrincipal extends TelaPrincipalControles {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				TelaGerencia telaGerencia = new TelaGerencia(owner);
+				TelaGerencia telaGerencia = new TelaGerencia();
 				telaGerencia.mostrarTela();
 			}
 

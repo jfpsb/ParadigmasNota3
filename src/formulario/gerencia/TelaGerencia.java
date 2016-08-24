@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -23,15 +22,15 @@ public class TelaGerencia extends TelaGerenciaControles {
 	TelaSala telaSala;
 	TelaSessao telaSessao;
 
-	private JDialog owner = this;
+	private JFrame owner = this;
 
 	/**
 	 * Configura listeners de botões na tela de gerência.
 	 * 
 	 * @param frame
 	 */
-	public TelaGerencia(JFrame frame) {
-		super(frame);
+	public TelaGerencia() {
+		super();
 
 		btnFilmes.addActionListener(new ActionListener() {
 			@Override

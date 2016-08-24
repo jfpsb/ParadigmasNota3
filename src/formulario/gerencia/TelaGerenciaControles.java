@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -16,7 +15,7 @@ import javax.swing.JPanel;
  * @author jfpsb
  *
  */
-public class TelaGerenciaControles extends JDialog {
+public class TelaGerenciaControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelPrincipalGerencia;
@@ -30,9 +29,8 @@ public class TelaGerenciaControles extends JDialog {
 	/**
 	 * Chama o método que inicializa os componentes da UI.
 	 */
-	public TelaGerenciaControles(JFrame frame) {
-		super(frame, "Opções De Gerência", true); // Determina owner, mensagem e
-													// que o frame é modal
+	public TelaGerenciaControles() {
+		super("Opções De Gerência"); 
 		inicializarControles();
 	}
 

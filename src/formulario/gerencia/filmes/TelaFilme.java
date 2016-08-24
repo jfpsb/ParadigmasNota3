@@ -17,6 +17,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			public void actionPerformed(ActionEvent arg0) {
 				TelaFilmeCadastro cad = new TelaFilmeCadastro();
 				cad.mostrarTela();
+				System.out.println("ALO");
 			}
 
 		});
