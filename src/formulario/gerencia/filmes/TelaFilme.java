@@ -1,5 +1,8 @@
 package formulario.gerencia.filmes;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import formulario.gerencia.TelaBaseEntidadeControles;
 
 public class TelaFilme extends TelaBaseEntidadeControles {
@@ -7,5 +10,15 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 
 	public TelaFilme() {
 		super("Opcões de Filmes");
+
+		btnCadastrarNovo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				TelaFilmeCadastro cad = new TelaFilmeCadastro();
+				cad.mostrarTela();
+			}
+
+		});
 	}
 }

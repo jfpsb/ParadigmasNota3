@@ -10,14 +10,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 public class TelaBaseEntidadeControles extends JInternalFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelPrincipal;
-	private JButton btnCadastrarNovo;
+	protected JButton btnCadastrarNovo;
 	private JMenuBar menuBar;
 
 	public TelaBaseEntidadeControles(String titulo) {
