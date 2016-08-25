@@ -31,9 +31,10 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 
 					cadastrarFilme.mostrarTela();
 				} catch (TelaAbertaException e1) {
-					JOptionPane.showMessageDialog(owner, e1.getMessage(), "Erro em opções de sessões!",
+					JOptionPane.showMessageDialog(owner, e1.getMessage(), "Erro em opções de cadastro de filmes!",
 							JOptionPane.ERROR_MESSAGE);
 				} finally {
+					cadastrarFilme.setState(JFrame.NORMAL);
 					cadastrarFilme.toFront();
 				}
 			}

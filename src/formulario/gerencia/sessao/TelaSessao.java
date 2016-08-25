@@ -11,7 +11,6 @@ public class TelaSessao extends TelaBaseEntidadeControles{
 
 	public TelaSessao() {
 		super("Opções de Sessão");
-		// TODO Auto-generated constructor stub
 	}
 
 }

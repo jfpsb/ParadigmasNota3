@@ -1,18 +1,25 @@
 package formulario.gerencia;
 
 import java.awt.Color;
-import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
+/**
+ * Tela base com controles comuns das telas de manipular entidades.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaBaseEntidadeControles extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelPrincipal;
+	protected SpringLayout springLayout;
 	protected JButton btnCadastrarNovo;
 	private JMenuBar menuBar;
 
@@ -25,7 +32,8 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 	 * Instancia e configura elementos da UI.
 	 */
 	private void inicializarControles() {
-		panelPrincipal = new JPanel(new GridBagLayout());
+		springLayout = new SpringLayout();
+		panelPrincipal = new JPanel(springLayout);
 		menuBar = new JMenuBar();
 		btnCadastrarNovo = new JButton("Cadastrar Novo");
 
