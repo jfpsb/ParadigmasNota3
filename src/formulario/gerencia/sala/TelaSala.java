@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
+import outrasclasses.ChecarTela;
 
 public class TelaSala extends TelaBaseEntidadeControles {
 
@@ -29,7 +30,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					checaTelaAberta(cadastrarSala);
+					ChecarTela.checaTelaAberta(cadastrarSala);
 
 					cadastrarSala = new TelaSalaCadastro();
 
@@ -44,16 +45,6 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			}
 
 		});
-	}
-	
-	/**
-	 * Checa se a tela está aberta no momento. Se sim, é lançada a exceção.
-	 * 
-	 * @throws TelaAbertaException
-	 */
-	private void checaTelaAberta(JFrame frame) throws TelaAbertaException {
-		if (frame != null && (frame.isVisible() || frame.isDisplayable()))
-			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
 
 }
