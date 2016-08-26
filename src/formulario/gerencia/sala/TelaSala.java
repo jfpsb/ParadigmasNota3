@@ -11,17 +11,22 @@ import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 import outrasclasses.ChecarTela;
 
+/**
+ * Tela que vai conter as opções de atualizar, deletar e cadastrar novas salas.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaSala extends TelaBaseEntidadeControles {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private JInternalFrame owner = this;
 
 	private TelaSalaCadastro cadastrarSala;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaSala() {
 		super("Opções de Salas");
 		

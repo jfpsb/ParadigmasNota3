@@ -5,9 +5,19 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Classe onde são configurados os listeners da tela de cadastro de
+ * funcionários.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFuncionarioCadastro extends TelaFuncionarioCadastroControles {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaFuncionarioCadastro() {
 		super();
 

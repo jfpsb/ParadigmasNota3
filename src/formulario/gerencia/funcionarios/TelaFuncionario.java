@@ -9,11 +9,20 @@ import javax.swing.JOptionPane;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 
+/**
+ * Tela que vai conter as opções de atualizar, deletar e cadastrar novos funcionários.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFuncionario extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
 	
 	private TelaFuncionarioCadastro cadastrarFuncionario;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaFuncionario() {
 		super("Opcões de Funcionários");
 

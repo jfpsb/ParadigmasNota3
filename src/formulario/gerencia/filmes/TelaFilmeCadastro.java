@@ -9,11 +9,20 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Classe onde são configurados os listeners da tela de cadastro de filmes.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 	private static final long serialVersionUID = 1L;
 
 	private File arquivo = null;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaFilmeCadastro() {
 		super();
 

@@ -12,6 +12,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Classe onde são configurados os controles da tela de cadastrar filmes.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFilmeCadastroControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -29,6 +35,9 @@ public class TelaFilmeCadastroControles extends JFrame {
 	protected JButton btnEscolherArquivo;
 	private JScrollPane scrollPane;
 
+	/**
+	 * Chama construtor da superclasse e inicializa elementos da UI.
+	 */
 	public TelaFilmeCadastroControles() {
 		super("Cadastro de Filmes");
 		inicializarControles();
@@ -50,9 +59,9 @@ public class TelaFilmeCadastroControles extends JFrame {
 		txtSinopse = new JTextArea(5, 30);
 		txtImagem = new JTextField(20);
 		txtDuracao = new JTextField(10);
-		
+
 		txtSinopse.setLineWrap(true);
-		
+
 		scrollPane = new JScrollPane(txtSinopse);
 
 		btnCadastrar = new JButton("Cadastrar");

@@ -10,13 +10,22 @@ import javax.swing.JOptionPane;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 
+/**
+ * Tela que vai conter as opções de atualizar, deletar e cadastrar novos filmes.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFilme extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
-	
+
 	private JInternalFrame owner = this;
 
 	private TelaFilmeCadastro cadastrarFilme;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaFilme() {
 		super("Opcões de Filmes");
 

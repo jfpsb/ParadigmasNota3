@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
 /**
@@ -21,6 +22,13 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 	private JPanel panelPrincipal;
 	protected SpringLayout springLayout;
 	protected JButton btnCadastrarNovo;
+	protected JButton btnDeletarSelecao;
+	protected JButton btnAlterarSelecao;// A posição destes botões na tela vão
+										// ser configuradas na classe que
+										// herdar esta
+	protected JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
+									// colunas desta tabela será configurada na
+									// tela que herdar esta classe
 	private JMenuBar menuBar;
 
 	public TelaBaseEntidadeControles(String titulo) {
@@ -36,6 +44,8 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 		panelPrincipal = new JPanel(springLayout);
 		menuBar = new JMenuBar();
 		btnCadastrarNovo = new JButton("Cadastrar Novo");
+		btnDeletarSelecao = new JButton("Deletar Selecionado");
+		btnAlterarSelecao = new JButton("Atualizar Selecionado");
 
 		btnCadastrarNovo.setBackground(new Color(240, 240, 240));
 		btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));

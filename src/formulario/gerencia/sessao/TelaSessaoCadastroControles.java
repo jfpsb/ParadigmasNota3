@@ -16,6 +16,12 @@ import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
+/**
+ * Classe onde são configurados os controles da tela de cadastrar sessões.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaSessaoCadastroControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -37,6 +43,9 @@ public class TelaSessaoCadastroControles extends JFrame {
 	protected JTextField txtPreco;
 	protected JButton btnCadastrar;
 
+	/**
+	 * Chama construtor da superclasse e inicializa elementos da UI.
+	 */
 	public TelaSessaoCadastroControles() {
 		super("Cadastro de Sessões");
 		inicializarControles();

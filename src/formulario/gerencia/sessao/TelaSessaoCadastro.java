@@ -6,9 +6,18 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+/**
+ * Classe onde são configurados os listeners da tela de cadastro de sessões.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaSessaoCadastro() {
 		super();
 

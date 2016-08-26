@@ -10,6 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Classe onde são configurados os controles da tela de cadastrar funcionários.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaFuncionarioCadastroControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -19,6 +25,9 @@ public class TelaFuncionarioCadastroControles extends JFrame {
 	protected JTextField txtNome;
 	protected JButton btnCadastrar;
 
+	/**
+	 * Chama construtor da superclasse e inicializa elementos da UI.
+	 */
 	public TelaFuncionarioCadastroControles() {
 		super("Cadastro de Funcionários");
 		inicializarControles();
@@ -48,19 +57,19 @@ public class TelaFuncionarioCadastroControles extends JFrame {
 		// btnCadastrar
 		springLayout.putConstraint(SpringLayout.WEST, btnCadastrar, 141, SpringLayout.WEST, panelPrincipal);
 		springLayout.putConstraint(SpringLayout.NORTH, btnCadastrar, 15, SpringLayout.SOUTH, txtNome);
-		
+
 		panelPrincipal.setBorder(BorderFactory.createTitledBorder("CADASTRO DE FUNCIONÁRIO"));
-		
+
 		panelPrincipal.add(lblNome);
 		panelPrincipal.add(txtNome);
 		panelPrincipal.add(btnCadastrar);
-		
+
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(new Dimension(400, 150));
 		this.setLocationRelativeTo(null);
 		this.add(panelPrincipal);
 	}
-	
+
 	/**
 	 * Abre tela.
 	 */

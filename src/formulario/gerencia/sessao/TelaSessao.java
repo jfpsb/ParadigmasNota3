@@ -10,18 +10,24 @@ import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 import outrasclasses.ChecarTela;
 
-public class TelaSessao extends TelaBaseEntidadeControles{
-
-	/**
-	 * 
-	 */
+/**
+ * Tela que vai conter as opções de atualizar, deletar e cadastrar novas
+ * sessões.
+ * 
+ * @author jfpsb
+ *
+ */
+public class TelaSessao extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
-	
+
 	private TelaSessaoCadastro cadastrarSessao;
 
+	/**
+	 * Chama construtor da superclasse e adiciona listeners aos botões.
+	 */
 	public TelaSessao() {
 		super("Opções de Sessão");
-		
+
 		btnCadastrarNovo.addActionListener(new ActionListener() {
 
 			@Override

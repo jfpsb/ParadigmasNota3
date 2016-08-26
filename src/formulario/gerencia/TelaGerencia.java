@@ -14,6 +14,12 @@ import formulario.gerencia.funcionarios.TelaFuncionario;
 import formulario.gerencia.sala.TelaSala;
 import formulario.gerencia.sessao.TelaSessao;
 
+/**
+ * Implementação dos listeners da tela de gerência.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaGerencia extends TelaGerenciaControles {
 	private static final long serialVersionUID = 1L;
 

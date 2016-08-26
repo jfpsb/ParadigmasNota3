@@ -18,9 +18,12 @@ import formulario.gerencia.TelaGerencia;
 public class TelaPrincipal extends TelaPrincipalControles {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private TelaGerencia telaGerencia;
 
+	/**
+	 * Construtor que configura listeners em botões.
+	 */
 	public TelaPrincipal() {
 		// btnVendas
 		btnVendas.addActionListener(new ActionListener() {
@@ -37,12 +40,12 @@ public class TelaPrincipal extends TelaPrincipalControles {
 		btnGerencia.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) {
 				try {
 					checaTelaAberta(telaGerencia);
 
 					telaGerencia = new TelaGerencia();
-					
+
 					telaGerencia.mostrarTela();
 				} catch (TelaAbertaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro em opções de gerência!",
@@ -55,7 +58,7 @@ public class TelaPrincipal extends TelaPrincipalControles {
 
 		});
 	}
-	
+
 	/**
 	 * Checa se a tela está aberta no momento. Se sim, é lançada a exceção.
 	 * 

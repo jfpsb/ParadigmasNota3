@@ -4,6 +4,12 @@ import javax.swing.JFrame;
 
 import excecoes.TelaAbertaException;
 
+/**
+ * Classe para checar propriedades de telas.
+ * 
+ * @author jfpsb
+ *
+ */
 public class ChecarTela {
 
 	/**

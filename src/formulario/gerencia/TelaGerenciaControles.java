@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * Instancia e configura controles de tela de gerência.
+ * Instancia e configura controles da tela de gerência.
  * 
  * @author jfpsb
  *

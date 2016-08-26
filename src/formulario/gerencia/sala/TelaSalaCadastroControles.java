@@ -10,6 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
+/**
+ * Classe onde são configurados os controles da tela de cadastrar salas.
+ * 
+ * @author jfpsb
+ *
+ */
 public class TelaSalaCadastroControles extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -23,6 +29,9 @@ public class TelaSalaCadastroControles extends JFrame {
 	protected JTextField txtLinhas;
 	protected JButton btnCadastrar;
 
+	/**
+	 * Chama construtor da superclasse e inicializa elementos da UI.
+	 */
 	public TelaSalaCadastroControles() {
 		super("Cadastro de Salas");
 		inicializarControles();

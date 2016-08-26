@@ -8,7 +8,7 @@ package excecoes;
  */
 @SuppressWarnings("serial")
 public class TelaAbertaException extends Exception {
-	
+
 	public TelaAbertaException() {
 	}
 
