@@ -19,5 +19,7 @@
 	<classpathentry exported="true" kind="lib" path="libs/jboss-interceptors-api_1.1_spec-1.0.0.Beta1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jsr250-api-1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/mysql-connector-java-5.0.8-bin.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/hibernate-entitymanager-4.3.7.Final.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

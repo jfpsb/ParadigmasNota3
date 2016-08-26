@@ -11,7 +11,6 @@ public class TelaSala extends TelaBaseEntidadeControles {
 
 	public TelaSala() {
 		super("Opções de Salas");
-		// TODO Auto-generated constructor stub
 	}
 
 }
