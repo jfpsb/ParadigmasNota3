@@ -28,8 +28,9 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 										// ser configuradas na classe que
 										// herdar esta
 	protected JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
-	protected JScrollPane barraRolagem;	// colunas desta tabela será configurada na
-									// tela que herdar esta classe
+	protected JScrollPane barraRolagem; // colunas desta tabela será configurada
+										// na
+	// tela que herdar esta classe
 	private JMenuBar menuBar;
 
 	public TelaBaseEntidadeControles(String titulo) {
@@ -48,17 +49,16 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 		btnDeletarSelecao = new JButton("Deletar Selecionado");
 		btnAlterarSelecao = new JButton("Atualizar Selecionado");
 
-		//btnCadastrarNovo.setBackground(new Color(240, 240, 240));
-		//btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
+		// btnCadastrarNovo.setBackground(new Color(240, 240, 240));
+		// btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
 		this.applyButtonTheme(btnCadastrarNovo);
 		this.applyButtonTheme(btnDeletarSelecao);
 		this.applyButtonTheme(btnAlterarSelecao);
-		
-		
+
 		menuBar.add(btnCadastrarNovo);
 		menuBar.add(btnAlterarSelecao);
 		menuBar.add(btnDeletarSelecao);
-		
+
 		this.setJMenuBar(menuBar);
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -67,23 +67,26 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 		this.setIconifiable(true);
 		this.add(panelPrincipal);
 		this.createTable();
-		
+
 	}
+
 	/**
 	 * Aplica o Tema desejado a um botão.
 	 */
-	
-	private void applyButtonTheme(JButton btn){
+
+	private void applyButtonTheme(JButton btn) {
 		btn.setBackground(new Color(240, 240, 240));
 		btn.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
 	}
+
 	/**
 	 * Abre tela.
 	 */
 	public void mostrarTela() {
 		this.setVisible(true);
 	}
-	/*
+
+	/**
 	 * Cria a Tabela que mostra os elementos
 	 */
 	public abstract void createTable();
