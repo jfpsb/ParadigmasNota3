@@ -2,21 +2,46 @@ package formulario.gerencia.sessao;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+
+import javax.swing.JOptionPane;
 
 public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 	private static final long serialVersionUID = 1L;
-	
+
 	public TelaSessaoCadastro() {
 		super();
-		
+
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				int idSala, idFilme;
+				LocalDateTime data;
+				boolean legendado, tresD;
+				double preco;
+
+				try {
+					idSala = cmbSala.getSelectedIndex();
+					idFilme = cmbFilme.getSelectedIndex();
+					data = datePicker.getDateTimeStrict();
+					legendado = chkLegendado.isSelected();
+					tresD = chk3D.isSelected();
+					preco = Double.parseDouble(txtPreco.getText());
+
+					// TODO colocar o método de salvar em BD
+
+					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
+							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (IllegalArgumentException iae) {
+					JOptionPane.showMessageDialog(null, iae.getMessage(), "Erro em dados digitados!",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
-			
+
 		});
 	}
 }
