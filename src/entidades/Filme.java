@@ -20,7 +20,7 @@ public class Filme {
 	private String nome;
 	
 	@Column
-	private Boolean islegendado;
+	private Boolean isLegendado;
 	
 	@Column
 	private Boolean is3D;
@@ -46,7 +46,7 @@ public class Filme {
 	 */
 	public Filme(String nome, Boolean islegendado, Boolean is3d, String sinopse, String imagem, int duracao) {
 		this.nome = nome;
-		this.islegendado = islegendado;
+		this.isLegendado = islegendado;
 		this.is3D = is3d;
 		this.sinopse = sinopse;
 		this.imagem = imagem;
@@ -74,7 +74,7 @@ public class Filme {
 	 * @return Retorna true para filme legendado e false para caso contrário.
 	 */
 	public Boolean getIslegendado() {
-		return islegendado;
+		return isLegendado;
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class Filme {
 	 * @param islegendado Recebe um booleano para indicar se é ou não é legendado.
 	 */
 	public void setIslegendado(Boolean islegendado) {
-		this.islegendado = islegendado;
+		this.isLegendado = islegendado;
 	}
 	
 	/**
