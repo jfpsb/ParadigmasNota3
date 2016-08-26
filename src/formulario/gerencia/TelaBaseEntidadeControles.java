@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
@@ -16,7 +17,7 @@ import javax.swing.SpringLayout;
  * @author jfpsb
  *
  */
-public class TelaBaseEntidadeControles extends JInternalFrame {
+public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panelPrincipal;
@@ -27,7 +28,7 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 										// ser configuradas na classe que
 										// herdar esta
 	protected JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
-									// colunas desta tabela será configurada na
+	protected JScrollPane barraRolagem;	// colunas desta tabela será configurada na
 									// tela que herdar esta classe
 	private JMenuBar menuBar;
 
@@ -47,11 +48,17 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 		btnDeletarSelecao = new JButton("Deletar Selecionado");
 		btnAlterarSelecao = new JButton("Atualizar Selecionado");
 
-		btnCadastrarNovo.setBackground(new Color(240, 240, 240));
-		btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
-
+		//btnCadastrarNovo.setBackground(new Color(240, 240, 240));
+		//btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
+		this.applyButtonTheme(btnCadastrarNovo);
+		this.applyButtonTheme(btnDeletarSelecao);
+		this.applyButtonTheme(btnAlterarSelecao);
+		
+		
 		menuBar.add(btnCadastrarNovo);
-
+		menuBar.add(btnAlterarSelecao);
+		menuBar.add(btnDeletarSelecao);
+		
 		this.setJMenuBar(menuBar);
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -59,12 +66,25 @@ public class TelaBaseEntidadeControles extends JInternalFrame {
 		this.setClosable(true);
 		this.setIconifiable(true);
 		this.add(panelPrincipal);
+		this.createTable();
+		
 	}
-
+	/**
+	 * Aplica o Tema desejado a um botão.
+	 */
+	
+	private void applyButtonTheme(JButton btn){
+		btn.setBackground(new Color(240, 240, 240));
+		btn.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
+	}
 	/**
 	 * Abre tela.
 	 */
 	public void mostrarTela() {
 		this.setVisible(true);
 	}
+	/*
+	 * Cria a Tabela que mostra os elementos
+	 */
+	public abstract void createTable();
 }

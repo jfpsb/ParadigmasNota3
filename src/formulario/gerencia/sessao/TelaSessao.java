@@ -5,6 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.SpringLayout;
 
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
@@ -49,5 +52,18 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 
 		});
 	}
-
+	@Override
+	public void createTable() {
+		tableEntidade = null;
+		String [] colunas = {"Sala", "Filme", "Data", "Legendado", "3D", "Preço"};
+		Object [][] dados;
+		dados = new Object[3][colunas.length];
+		//povoar tabela aqui
+		tableEntidade = new JTable(dados, colunas);	
+		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
+		barraRolagem = new JScrollPane(tableEntidade);
+		this.add(barraRolagem);
+		
+	}
 }
