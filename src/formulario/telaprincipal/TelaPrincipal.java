@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaGerencia;
+import formulario.vendaDeIngressos.TelaVenda;
 
 /**
  * Coloca os listeners no botões da tela principal.
@@ -20,6 +21,7 @@ public class TelaPrincipal extends TelaPrincipalControles {
 	private static final long serialVersionUID = 1L;
 
 	private TelaGerencia telaGerencia;
+	private TelaVenda telaVenda;
 
 	/**
 	 * Construtor que configura listeners em botões.
@@ -30,8 +32,17 @@ public class TelaPrincipal extends TelaPrincipalControles {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TelaGerencia telaGerencia = new TelaGerencia(owner);
-				// telaGerencia.mostrarTela();
+				try{
+					checaTelaAberta(telaVenda);
+					telaVenda = new TelaVenda();
+					telaVenda.mostrarTela();
+				}catch (TelaAbertaException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro em opções de gerência!",
+							JOptionPane.ERROR_MESSAGE);
+				} finally {
+					telaVenda.setState(JFrame.NORMAL);
+					telaVenda.toFront();
+				}
 			}
 
 		});
