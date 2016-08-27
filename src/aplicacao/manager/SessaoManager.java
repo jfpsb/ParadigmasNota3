@@ -48,7 +48,7 @@ public class SessaoManager {
 	public static List<Sessao> listarSessaoPorHorario(LocalDateTime data){
 		List<Sessao> aux = new ArrayList<Sessao>();
 		for (Sessao sessao : listarSessao()) {
-			LocalDateTime dataEnd = sessao.getData().plusMinutes(sessao.getFilme().getDuracao());
+			LocalDateTime dataEnd = getLocalDateTimeDoFimDaSessao(sessao);
 			if ((sessao.getData().isBefore(data) && dataEnd.isAfter(data)) ||
 					sessao.getData().isEqual(data) || dataEnd.isEqual(data)){
 				aux.add(sessao);
@@ -87,11 +87,18 @@ public class SessaoManager {
 		return aux;
 	}
 	
+	/**
+	 * Retorna o Horário de fim da Sessão
+	 * @param sessao Sessao que irá ser verificada
+	 * @return LocalDateTime com o fim da Sessão
+	 */
+	public static LocalDateTime getLocalDateTimeDoFimDaSessao(Sessao sessao){
+		return sessao.getData().plusMinutes(sessao.getFilme().getDuracao());
+	}
+	
 	//TODO: Cria Reserva para a Sessao (Apenas se a sessão ainda não ocorreu) e retorna a mesma (Para registrar no ingresso)
-	//TODO: Informar quando a Sessao termina (Data de Inicio + duracao do filme)
 	//TODO: Contar quantas reservas existem para a sessão
 	//TODO: Contar quantas reservas ainda são suportadas para a sessão.
 	//TODO: Remover Reserva para uma sessão (Buscar e remover em vez de enviar a sessão)
-	//TODO: Remover Sessao especifica
 	
 }
