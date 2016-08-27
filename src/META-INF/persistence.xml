@@ -12,6 +12,7 @@
 		<class>entidades.Filme</class>
 		<class>entidades.Sala</class>
 		<class>entidades.Sessao</class>
+		<class>entidades.Funcionario</class>
 		      
 	<properties>
        
