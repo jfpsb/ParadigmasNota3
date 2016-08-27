@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import aplicacao.FilmesManager;
 import arquivo.CopiarArquivo;
 
 /**
@@ -47,7 +48,7 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 						throw new IllegalArgumentException("O nome do filme não pode ser vazio!");
 
 					// TODO Implementar código para salvar filme no BD
-
+					//FilmesManager.CriarFilme(nome, islegendado, is3d, sinopse, imagem, duracao);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
 							+ duracao + "\nImagem: " + imagem);
 
