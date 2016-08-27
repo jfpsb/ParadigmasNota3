@@ -36,6 +36,7 @@ public class Filme {
 	 * @param image   Diretorio ou link para Imagem.
 	 * @param duracao    Duração do Filme.
 	 */
+	public Filme(){}
 	public Filme(String nome, String sinopse, String imagem, int duracao) {
 		this.nome = nome;
 		this.sinopse = sinopse;
