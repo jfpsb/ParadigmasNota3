@@ -28,8 +28,7 @@ public class Funcionario {
 	 * @param nome
 	 *            Nome de Funcionário
 	 */
-	public Funcionario(int id, String nome) {
-		this.id = id;
+	public Funcionario(String nome) {
 		this.nome = nome;
 	}
 
