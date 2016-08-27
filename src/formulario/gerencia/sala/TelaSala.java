@@ -66,6 +66,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
 		barraRolagem = new JScrollPane(tableEntidade);
 		this.add(barraRolagem);
+
 	}
 
 }
