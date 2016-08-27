@@ -9,6 +9,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import arquivo.CopiarArquivo;
+
 /**
  * Classe onde são configurados os listeners da tela de cadastro de filmes.
  * 
@@ -32,13 +34,14 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 			public void actionPerformed(ActionEvent e) {
 				String nome, sinopse;
 				int duracao;
-				File imagem;
+				String imagem;
 
 				try {
 					nome = txtNome.getText();
 					sinopse = txtSinopse.getText();
 					duracao = Integer.parseInt(txtDuracao.getText());
-					imagem = arquivo;
+
+					imagem = CopiarArquivo.CopiaParaMeusDocumentos(arquivo).toString();
 
 					if (nome.isEmpty())
 						throw new IllegalArgumentException("O nome do filme não pode ser vazio!");
@@ -46,13 +49,16 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 					// TODO Implementar código para salvar filme no BD
 
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
-							+ duracao + "\nImagem: " + imagem.getName());
+							+ duracao + "\nImagem: " + imagem);
 
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "A duração tem que ser informada em número de minutos.",
 							"Erro em dados digitados!", JOptionPane.ERROR_MESSAGE);
 				} catch (IllegalArgumentException iae) {
 					JOptionPane.showMessageDialog(null, iae.getMessage(), "Erro em dados digitados!",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (NullPointerException npe) {
+					JOptionPane.showMessageDialog(null, npe.getMessage(), "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);
 				}
 
