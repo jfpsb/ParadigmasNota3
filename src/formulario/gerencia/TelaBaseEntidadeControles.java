@@ -1,6 +1,7 @@
 package formulario.gerencia;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	protected JButton btnGerarRelatorio;
 	protected JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
 	protected JScrollPane barraRolagem; // colunas desta tabela será configurada
-										// na
+	// na
 	// tela que herdar esta classe
 	private JMenuBar menuBar;
 
@@ -90,4 +91,21 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	 * Cria a Tabela que mostra os elementos
 	 */
 	public abstract void createTable();
+	/**
+	 * 
+	 * @param table
+	 * Função que organiza a altura das linhas
+	 */
+	protected void updateRowHeights(JTable table){
+	    for (int row = 0; row < table.getRowCount(); row++)
+	    {
+	        int rowHeight = table.getRowHeight();
+	        for (int column = 0; column < table.getColumnCount(); column++){
+	            Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+	            rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+	        }
+
+	        table.setRowHeight(row, rowHeight);
+	    }
+	}
 }

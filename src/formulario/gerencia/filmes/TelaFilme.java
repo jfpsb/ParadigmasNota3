@@ -2,6 +2,7 @@ package formulario.gerencia.filmes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -82,6 +83,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			i++;
 		}
 		tableEntidade = new JTable(dados, colunas);	
+		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
 		barraRolagem = new JScrollPane(tableEntidade);
