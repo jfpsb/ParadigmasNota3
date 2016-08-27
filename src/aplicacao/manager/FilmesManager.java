@@ -1,14 +1,18 @@
-package aplicacao;
+package aplicacao.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Filme;
 import util.DAO;
 
+/**
+ * Classe para controle de Filmes
+ *
+ */
 public class FilmesManager {
 	
 	private static DAO<Filme> dao = new DAO<Filme>(Filme.class);
-	
 	/**
 	  * Cria uma entidade de Filme e persiste a mesma no banco.
 	  * 
@@ -18,10 +22,16 @@ public class FilmesManager {
 	  * @param sinopse  Sinopse.
 	  * @param image   Diretorio ou link para Imagem.
 	  * @param duracao    Duração do Filme.
+	  * 
+	  * @return Retorna verdade se foi criado
 	  */
-	public static void CriarFilme(String nome, Boolean islegendado, Boolean is3d, String sinopse, String imagem, int duracao){
-		Filme filme = new Filme(nome, islegendado, is3d, sinopse, imagem, duracao);
-		dao.salva(filme);
+	public static boolean CriarFilme(String nome, String sinopse, String imagem, int duracao){
+		if(duracao > 0 && !nome.isEmpty()){
+			Filme filme = new Filme(nome, sinopse, imagem, duracao);
+			dao.salva(filme);
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -38,7 +48,7 @@ public class FilmesManager {
 	  * 
 	  * @param filme   Entidade de Filme.
 	  */
-	public static void AtualizarFilme(Filme filme){
+	public static void AtualizarFilme(Filme filme){		
 		dao.atualizar(filme);
 	}
 	
@@ -49,6 +59,21 @@ public class FilmesManager {
 	  */
 	public static List<Filme> ListarFilmes(){
 		return dao.listar();
+	}
+	
+	/**
+	 * Busca uma lista de filmes que contem o texto de busca
+	 * @param texto Elemento a ser buscado
+	 * @return Lista de elemento que contem o texto em questão
+	 */
+	private static List<Filme> buscarFilme(String texto){
+		List<Filme> aux = new ArrayList<Filme> ();
+		for (Filme filme : ListarFilmes()) {
+			if(filme.getNome().contains(texto))
+				aux.add(filme);
+		}
+		
+		return aux;
 	}
 	
 	
