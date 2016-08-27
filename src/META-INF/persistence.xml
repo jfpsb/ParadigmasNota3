@@ -10,6 +10,8 @@
 
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>entidades.Filme</class>
+		<class>entidades.Sala</class>
+		<class>entidades.Sessao</class>
 		      
 	<properties>
        
