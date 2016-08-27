@@ -25,7 +25,7 @@ public class FilmesManager {
 	  * 
 	  * @return Retorna verdade se foi criado
 	  */
-	public static boolean CriarFilme(String nome, String sinopse, String imagem, int duracao){
+	public static boolean criarFilme(String nome, String sinopse, String imagem, int duracao){
 		if(duracao > 0 && !nome.isEmpty()){
 			Filme filme = new Filme(nome, sinopse, imagem, duracao);
 			dao.salva(filme);
@@ -35,20 +35,20 @@ public class FilmesManager {
 	}
 	
 	/**
-	  * Recebe uma entidade de filme e remove do banco.
+	  * Recebe uma entidade de filme e remove do Banco.
 	  * 
 	  * @param filme   Entidade de Filme.
 	  */
-	public static void RemoverFilme(Filme filme){
+	public static void removerFilme(Filme filme){
 		dao.remover(filme);
 	}
 	
 	/**
-	  * Recebe uma entidade de filme e atualiza seus dados no banco.
+	  * Recebe uma entidade de filme e atualiza seus dados no Banco.
 	  * 
 	  * @param filme   Entidade de Filme.
 	  */
-	public static void AtualizarFilme(Filme filme){		
+	public static void atualizarFilme(Filme filme){		
 		dao.atualizar(filme);
 	}
 	
@@ -57,7 +57,7 @@ public class FilmesManager {
 	  * 
 	  * @return Lista de filmes.
 	  */
-	public static List<Filme> ListarFilmes(){
+	public static List<Filme> listarFilmes(){
 		return dao.listar();
 	}
 	
@@ -68,7 +68,7 @@ public class FilmesManager {
 	 */
 	private static List<Filme> buscarFilme(String texto){
 		List<Filme> aux = new ArrayList<Filme> ();
-		for (Filme filme : ListarFilmes()) {
+		for (Filme filme : listarFilmes()) {
 			if(filme.getNome().contains(texto))
 				aux.add(filme);
 		}
