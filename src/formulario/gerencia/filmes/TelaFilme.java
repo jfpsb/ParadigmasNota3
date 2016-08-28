@@ -26,12 +26,9 @@ import formulario.gerencia.TelaBaseEntidadeControles;
  *
  */
 public class TelaFilme extends TelaBaseEntidadeControles {
-	private static final long serialVersionUID = 1L;
-	private static final int EDITSELECTED = 23;
-	private static final int ONLYSHOW = 24;
+	private static final long serialVersionUID = 1L;	
 	private JInternalFrame owner = this;
-	private TelaFilmeCadastro cadastrarFilme;
-	private Object [][] dados;
+	private TelaFilmeCadastro cadastrarFilme;	
 	private List<Filme> filmes;
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.

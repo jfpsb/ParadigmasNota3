@@ -12,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
 import aplicacao.manager.FuncionarioManager;
+import entidades.Filme;
 import entidades.Funcionario;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
@@ -92,6 +93,16 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 		this.add(barraRolagem);		
 		this.validate();
 		this.repaint();
+	}
+	private Funcionario getSelectedFuncionario(int code){
+		int row = tableEntidade.getSelectedRow();
+		String nome = dados[row][0].toString();			
+		JOptionPane.showMessageDialog(null, "Nome: "+nome);
+		Funcionario funcionario = funcionarios.get(row);
+		if(code == EDITSELECTED){
+			funcionario.setNome(nome);
+		}
+		return funcionario;
 	}
 
 }

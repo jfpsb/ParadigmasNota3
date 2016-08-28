@@ -32,7 +32,9 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	// na
 	// tela que herdar esta classe
 	private JMenuBar menuBar;
-
+	protected Object [][] dados;//dados da tabela
+	protected static final int EDITSELECTED = 23;
+	protected static final int ONLYSHOW = 24;
 	public TelaBaseEntidadeControles(String titulo) {
 		super(titulo);
 		inicializarControles();
