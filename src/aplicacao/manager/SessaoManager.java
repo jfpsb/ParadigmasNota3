@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import entidades.Filme;
+import entidades.Ingresso;
 import entidades.Reserva;
 import entidades.Sala;
 import entidades.Sessao;
@@ -120,14 +121,20 @@ public class SessaoManager {
 		return sessao.getData().plusMinutes(sessao.getFilme().getDuracao());
 	}
 	
-	public boolean reservarPoltrona(Sessao sessao){
-		if (getLocalDateTimeDoFimDaSessao(sessao).isAfter(LocalDateTime.now())){
-			
+	public boolean reservarPoltrona(Sessao sessao, Ingresso ingresso, int coluna, int linha){
+		if(sessao != null && ingresso != null){
+			if (getLocalDateTimeDoFimDaSessao(sessao).isAfter(LocalDateTime.now())){
+				//Reserva reserva = new Reserva(sessao, coluna, 0)
+			}	
 		}
+		
 		return false;
 	}
 	
-	//public List<Reservas> listarReservasDaSessao
+	public List<Reserva> listarReservasDaSessao(){
+		
+		return null;
+	}
 	
 		
 	//TODO: Cria Reserva para a Sessao (Apenas se a sessão ainda não ocorreu) e retorna a mesma (Para registrar no ingresso)

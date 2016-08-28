@@ -104,7 +104,31 @@ public class DAO<T> {
 	 */
 	public Boolean ExecuteSQLisEmpty(String sql) {											
 		return !em.createQuery(sql).getResultList().isEmpty();						
-	}																					
+	}
 	
+	/* Descontinuado
+	 * 
+	public List<Object> ListWithWhere(String[] args, Object[]search) {
+		Class<?> c = classe;
+		Table table = c.getAnnotation(Table.class);
+		
+		String sql = ("select * from " + table.name() + " where ");
+		for (int i=0; i < args.length; i++) {
+			if(search[i] != null){
+				if(search[i] instanceof Integer){
+					sql = sql + args[i]+ "=" + search[i] + " ";
+				}
+				else if(search[i] instanceof String){
+					sql = sql + args[i]+ "='" + search[i] + "' ";
+				}
+				else{
+					System.out.println("WARING: Tipo Inválido. Tipos Suportados: INT, STRING. Tente usar ExecuteSQL().");
+				}
+			}
+			
+		} 
+		return em.createQuery(sql).getResultList();						
+	}
+	*/
 
 }
