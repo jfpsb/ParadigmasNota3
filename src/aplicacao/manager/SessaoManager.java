@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import entidades.Filme;
+import entidades.Ingresso;
 import entidades.Reserva;
 import entidades.Sala;
 import entidades.Sessao;
@@ -19,6 +20,7 @@ public class SessaoManager {
 	
 	private static DAO<Sessao> daoSessao = new DAO<Sessao>(Sessao.class);
 	private static DAO<Reserva> daoReserva = new DAO<Reserva>(Reserva.class);
+	private static DAO<Ingresso> daoIngresso = new DAO<Ingresso>(Ingresso.class);
 	
 	/**
 	 * Cria uma entidade de sessao, se não existirem conflitos de horario e sala, a 
@@ -45,15 +47,61 @@ public class SessaoManager {
 		return true;
 	}
 	
+	/**
+	 * Atualiza uma sessao sessao, se não existirem conflitos de horario e sala, a 
+	 * sessão será criada e persistida no banco.
+	 * @param sessao Sessao a ser atualizada 
+	 * @param sala Referência da Sala.
+	 * @param filme Referência do Filme.
+	 * @param data Data de Inicio da Sessão.
+	 * @param isLegendado Se a sessão é legendado.
+	 * @param is3d Se a sessão é 3D.
+	 * @param preco preço da entrada.
+	 * @return Retorna verdade se a entidade for criada.
+	 */
+	public static boolean atualizarSessão(Sessao sessao, Sala sala, Filme filme, LocalDateTime data, boolean isLegendado, boolean is3d, double preco){
+		
+		List<Sessao> SessoesMarcadas = listarSessaoPorHorario(data);
+		for (Sessao s1 : SessoesMarcadas) {
+			if(s1.getSala().equals(sala)){
+				return false;
+			}
+		}
+		
+		sessao.setSala(sala);
+		sessao.setFilme(filme);
+		sessao.setData(data);
+		sessao.setIs3D(is3d);
+		sessao.setLegendado(isLegendado);
+		sessao.setPreco(preco);
+		daoSessao.atualizar(sessao);
+		
+		return true;
+	}
+	
+	/**
+	 * Remove uma sessao do banco, caso não existam reservas. Se o parametro de ignorar estiver 
+	 * verdadeiro as reservas subsequentes serão removidas.
+	 * @param sessao Sessao a ser removida.
+	 * @param ignorarReservas Booleana para ignorar reservas.
+	 * @return Retorna Verdadeiro se a Sessão for removida
+	 */
 	public static boolean removerSessao(Sessao sessao, boolean ignorarReservas){
 		if(ignorarReservas){
-			//TODO: Informar para a classe resposavel remover todos os ingresso relacionado com a sessao
+			for (Reserva reserva : listarReservasDaSessao(sessao)) {
+				removerReserva(reserva);
+			}
 		}
 		else{
-			//TODO: Se existirem reservas não remover
-			//TODO: Senão Remover
+			if(!listarReservasDaSessao(sessao).isEmpty()){
+				System.out.println("ERROR: Sessao não removida! Existem reservas nesta sessão! Tente ignora-las!");	
+				return false;
+			}
 		}
-		return false;
+		
+		daoSessao.remover(sessao);
+		
+		return true;
 	}
 	
 	/**
@@ -120,19 +168,110 @@ public class SessaoManager {
 		return sessao.getData().plusMinutes(sessao.getFilme().getDuracao());
 	}
 	
-	public boolean reservarPoltrona(Sessao sessao){
-		if (getLocalDateTimeDoFimDaSessao(sessao).isAfter(LocalDateTime.now())){
-			
+	/**
+	 * Faz a reserva de uma Poltrona
+	 * @param sessao Sessao a qual a reserva vai ser feita
+	 * @param ingresso Ingresso representativo a ser associada a reserva
+	 * @param coluna Coluna da reserva que deseja
+	 * @param linha Linha da reserva que deseja
+	 * @return Retorna verdadeiro se a reserva foi concluida.
+	 */
+	public static boolean reservarPoltrona(Sessao sessao, Ingresso ingresso, int coluna, int linha){
+		
+		if(sessao == null && ingresso == null){
+			System.out.println("ERROR: Parâmetros de Incorretos!");
+			return false;
 		}
-		return false;
+		
+		if (getLocalDateTimeDoFimDaSessao(sessao).isAfter(LocalDateTime.now())){
+			System.out.println("ERROR: Sessao encerrada!");	
+		}
+		
+		if(sessao.getSala().getnLin() < linha || sessao.getSala().getnCol() < coluna)
+		
+		for (Reserva reserva : listarReservasDaSessao(sessao)) {
+			if(reserva.getLinha() == coluna && reserva.getColuna() == coluna){
+				System.out.println("ERROR: Reserva já realizada! Tente de Novo.");
+				return false;
+			}
+		}
+		
+		Reserva reserva = new Reserva(sessao, coluna, linha);
+		
+		reserva.setIngresso(ingresso);
+		ingresso.setReserva(reserva);
+		
+		daoReserva.salva(reserva);
+		daoIngresso.salva(ingresso);
+		return true;
 	}
 	
-	//public List<Reservas> listarReservasDaSessao
+	/**
+	 * Listar todas as reservas feitas
+	 * 
+	 * @return Lista com as reservas
+	 */
+	public static List<Reserva> listarReservas(){
+		return daoReserva.listar();
+	}
 	
-		
-	//TODO: Cria Reserva para a Sessao (Apenas se a sessão ainda não ocorreu) e retorna a mesma (Para registrar no ingresso)
-	//TODO: Contar quantas reservas existem para a sessão
-	//TODO: Contar quantas reservas ainda são suportadas para a sessão.
-	//TODO: Remover Reserva para uma sessão (Buscar e remover em vez de enviar a sessão)
+	/**
+	 * Lista com as reservas feitas para uma sessao específica.
+	 * @param sessao Sessao a ser pesquisada.
+	 * @return Retorna uma lista de sessoes realizadas.
+	 */
+	public static List<Reserva> listarReservasDaSessao(Sessao sessao){
+		List<Reserva> aux = new ArrayList<Reserva>();
+		for (Reserva reserva : listarReservas()) {
+			if(reserva.getSessao().equals(sessao)){
+				aux.add(reserva);
+			}
+		}
+		return aux;
+	}
 	
+	/**
+	 * Lista com os ingressos feitos para uma sessao específica.
+	 * @param sessao Sessao a ser pesquisada.
+	 * @return Retorna uma lista de ingressos vendidos.
+	 */
+	public static List<Ingresso> listarIngressosDaSessao(Sessao sessao){
+		List<Ingresso> aux = new ArrayList<Ingresso>();
+		for (Reserva reserva : listarReservas()) {
+			if(reserva.getSessao().equals(sessao)){
+				aux.add(reserva.getIngresso());
+			}
+		}
+		return aux;
+	}
+	
+	/**
+	 * Retorna o número de Reservas restantes
+	 * @param sessao Sessão a ser pesquisada.
+	 * @return Inteiro com quantidade
+	 */
+	public static int reservasRestantes(Sessao sessao){
+		return sessao.getSala().getMaximoDePoltronas() - reservasRealizadas(sessao); 
+	}
+	
+	/**
+	 * Retorna o número de Reservas realizdas
+	 * @param sessao Sessão a ser pesquisada.
+	 * @return Inteiro com quantidade
+	 */
+	public static int reservasRealizadas(Sessao sessao){
+		return listarReservasDaSessao(sessao).size();
+	}
+	
+	/**
+	 * Remove uma reserva e seu respectivo ingresso do Banco 
+	 * @param reserva {@link Reserva} a ser removida
+	 */
+	public static void removerReserva(Reserva reserva){
+		daoIngresso.remover(reserva.getIngresso());
+		daoReserva.remover(reserva);
+	}
 }
+	
+	
+

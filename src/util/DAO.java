@@ -101,5 +101,5 @@ public class DAO<T> {
 	public Boolean ExecuteSQLisEmpty(String sql) {
 		return !em.createQuery(sql).getResultList().isEmpty();						
 	}																					
-	
 }
+

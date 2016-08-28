@@ -54,5 +54,6 @@ public class SalasManager {
 	public static List<Sala> listarSalas(){
 		return dao.listar();
 	}
+	//TODO: Listar Sala
 	
 }

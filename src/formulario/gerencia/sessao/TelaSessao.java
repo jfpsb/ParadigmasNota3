@@ -59,6 +59,21 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			}
 
 		});
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!SessaoManager.removerSessao(getSelectedSessao(), false)){
+					JOptionPane.showMessageDialog(null,  "Erro ao remover sessao. Ela deve ter reservas!", "Erro ao Remover",
+							JOptionPane.ERROR_MESSAGE);
+					return ;
+				}
+				createTable();
+				JOptionPane.showMessageDialog(null, "Removido", "Removido com Sucesso",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		btnAlterarSelecao.setEnabled(false);
 	}
 	@Override
 	public void createTable() {
@@ -81,6 +96,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			dados[i][3] = s.isLegendado();
 			dados[i][4] = s.isIs3D();
 			dados[i][5] = s.getPreco();
+			i++;
 		}
 		tableEntidade = new JTable(dados, colunas);	
 		updateRowHeights(tableEntidade);
@@ -94,5 +110,8 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 	@Override
 	public String retornaNomeTipoEntidade() {
 		return "Sessões";
+	}
+	private Sessao getSelectedSessao(){
+		return sessoes.get(tableEntidade.getSelectedRow());
 	}
 }

@@ -29,21 +29,25 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 			public void actionPerformed(ActionEvent e) {
 				int idSala, idFilme;
 				LocalDateTime data;
-				boolean legendado, tresD;
+				boolean isLegendado, is3d;
 				double preco;
 
 				try {
 					idSala = cmbSala.getSelectedIndex();
 					idFilme = cmbFilme.getSelectedIndex();
 					data = datePicker.getDateTimeStrict();
-					legendado = chkLegendado.isSelected();
-					tresD = chk3D.isSelected();
+					isLegendado = chkLegendado.isSelected();
+					is3d = chk3D.isSelected();
 					preco = Double.parseDouble(txtPreco.getText());
 
-					//SessaoManager.
+					if(!SessaoManager.criarSessão(salas.get(idSala), filmes.get(idFilme), data, isLegendado, is3d, preco)){
+						JOptionPane.showMessageDialog(null, "Conflito de Horários!","Erro ao Inserir", 
+								JOptionPane.ERROR_MESSAGE);
+						return ;
+					}
 
 					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
-							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
+							+ "\nLegendado: " + isLegendado + "\n3D: " + is3d + "\nPreço: " + preco);
 					telaSessao.createTable();
 					dispose();
 				} catch (NumberFormatException nfe) {
