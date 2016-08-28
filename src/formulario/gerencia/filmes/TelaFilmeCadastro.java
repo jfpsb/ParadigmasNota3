@@ -73,10 +73,9 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
-
-				fileChooser.addChoosableFileFilter(
-						new FileNameExtensionFilter("Imagens", ImageIO.getReaderFileSuffixes()));
-
+				fileChooser.removeChoosableFileFilter(fileChooser.getFileFilter());
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Imagens", ImageIO.getReaderFileSuffixes()));
+				
 				arquivo = null;
 
 				int result = fileChooser.showOpenDialog(null);
