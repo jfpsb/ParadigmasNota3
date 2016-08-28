@@ -133,5 +133,9 @@ public class TelaSala extends TelaBaseEntidadeControles {
 		}
 		return sala;
 	}
+	@Override
+	public String retornaNomeTipoEntidade() {
+		return "Salas";
+	}
 
 }

@@ -91,4 +91,8 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 		this.validate();
 		this.repaint();
 	}
+	@Override
+	public String retornaNomeTipoEntidade() {
+		return "Sessões";
+	}
 }

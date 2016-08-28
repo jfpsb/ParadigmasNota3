@@ -142,4 +142,9 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		}
 		return filme;
 	}
+
+	@Override
+	public String retornaNomeTipoEntidade() {
+		return "Filmes";
+	}
 }

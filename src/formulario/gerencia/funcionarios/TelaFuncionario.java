@@ -125,4 +125,9 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 		return funcionario;
 	}
 
+	@Override
+	public String retornaNomeTipoEntidade() {
+		return "Funcionários";
+	}
+
 }
