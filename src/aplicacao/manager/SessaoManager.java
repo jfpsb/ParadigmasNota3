@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import entidades.Filme;
+import entidades.Reserva;
 import entidades.Sala;
 import entidades.Sessao;
 import util.DAO;
@@ -15,9 +17,33 @@ import util.DAO;
  */
 public class SessaoManager {
 	
-	private static DAO<Sessao> daoSessao = new DAO<>(Sessao.class);
+	private static DAO<Sessao> daoSessao = new DAO<Sessao>(Sessao.class);
+	private static DAO<Reserva> daoReserva = new DAO<Reserva>(Reserva.class);
 	
-	//TODO: Criar Sessão (Se não existir sessão no mesmo horario)
+	/**
+	 * Cria uma entidade de sessao, se não existirem conflitos de horario e sala, a 
+	 * sessão será criada e persistida no banco. 
+	 * @param sala Referência da Sala.
+	 * @param filme Referência do Filme.
+	 * @param data Data de Inicio da Sessão.
+	 * @param isLegendado Se a sessão é legendado.
+	 * @param is3d Se a sessão é 3D.
+	 * @param preco preço da entrada.
+	 * @return Retorna verdade se a entidade for criada.
+	 */
+	public static boolean criarSessão(Sala sala, Filme filme, LocalDateTime data, boolean isLegendado, boolean is3d, double preco){
+		
+		List<Sessao> SessoesMarcadas = listarSessaoPorHorario(data);
+		for (Sessao sessao : SessoesMarcadas) {
+			if(sessao.getSala().equals(sala)){
+				return false;
+			}
+		}
+		
+		Sessao sessao = new Sessao(sala, filme, data, isLegendado, is3d, preco);
+		daoSessao.salva(sessao);
+		return true;
+	}
 	
 	public static boolean removerSessao(Sessao sessao, boolean ignorarReservas){
 		if(ignorarReservas){
@@ -29,8 +55,6 @@ public class SessaoManager {
 		}
 		return false;
 	}
-	
-	//TODO: Atualizar Sessão
 	
 	/**
 	 * Lista todas as sessões salvas no banco 
@@ -96,6 +120,16 @@ public class SessaoManager {
 		return sessao.getData().plusMinutes(sessao.getFilme().getDuracao());
 	}
 	
+	public boolean reservarPoltrona(Sessao sessao){
+		if (getLocalDateTimeDoFimDaSessao(sessao).isAfter(LocalDateTime.now())){
+			
+		}
+		return false;
+	}
+	
+	//public List<Reservas> listarReservasDaSessao
+	
+		
 	//TODO: Cria Reserva para a Sessao (Apenas se a sessão ainda não ocorreu) e retorna a mesma (Para registrar no ingresso)
 	//TODO: Contar quantas reservas existem para a sessão
 	//TODO: Contar quantas reservas ainda são suportadas para a sessão.

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Classe que representa uma reserva.
@@ -29,6 +30,10 @@ public class Reserva {
 
 	@Column
 	private boolean reservado;
+	
+	@OneToOne
+	private Ingresso ingresso;
+
 
 	/**
 	 * Cria objeto do tipo reserva.
@@ -80,6 +85,14 @@ public class Reserva {
 
 	public void setReservado(boolean reservado) {
 		this.reservado = reservado;
+	}
+	
+	public Ingresso getIngresso() {
+		return ingresso;
+	}
+
+	public void setIngresso(Ingresso ingresso) {
+		this.ingresso = ingresso;
 	}
 	
 	

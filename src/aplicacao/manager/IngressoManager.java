@@ -36,7 +36,7 @@ public class IngressoManager {
 			double preco) {
 
 		if (funcionario != null && filme != null && reserva != null) {
-			Ingresso ingresso = new Ingresso(funcionario, filme, reserva, meia, preco);
+			Ingresso ingresso = new Ingresso(funcionario, filme, meia, preco);
 			dao.salva(ingresso);
 			return true;
 		}

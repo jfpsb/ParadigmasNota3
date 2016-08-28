@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * Classe que representa um ingresso.
@@ -24,7 +25,7 @@ public class Ingresso {
 	@ManyToOne
 	private Filme filme;
 
-	@ManyToOne
+	@OneToOne
 	private Reserva reserva;
 
 	@Column
@@ -51,10 +52,9 @@ public class Ingresso {
 	 * @param preco
 	 *            Preço do ingresso.
 	 */
-	public Ingresso(Funcionario funcionario, Filme filme, Reserva reserva, boolean meia, double preco) {
+	public Ingresso(Funcionario funcionario, Filme filme, boolean meia, double preco) {
 		this.funcionario = funcionario;
 		this.filme = filme;
-		this.reserva = reserva;
 		this.meia = meia;
 		this.preco = preco;
 	}
