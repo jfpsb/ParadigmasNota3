@@ -100,7 +100,7 @@ public class CriaRelatorio {
 			rowConteudo = sheet.createRow(i + 2);
 			for (int j = 0; j < dtm.getColumnCount(); j++) {
 				HSSFCell celula = rowConteudo.createCell(j);
-				celula.setCellValue(dtm.getValueAt(i, j).toString());
+				celula.setCellValue(retornaValorEmCelula(dtm, i, j).toString());
 				configuraBordasCelular(estiloConteudo);
 				celula.setCellStyle(estiloConteudo);
 			}
@@ -124,5 +124,20 @@ public class CriaRelatorio {
 		style.setRightBorderColor(IndexedColors.BLACK.getIndex());
 		style.setBorderTop(CellStyle.BORDER_THIN);
 		style.setTopBorderColor(IndexedColors.BLACK.getIndex());
+	}
+
+	private static String retornaValorEmCelula(TableModel dtm, int i, int j) {
+		Object obj = dtm.getValueAt(i, j);
+
+		if (obj instanceof Boolean) {
+			boolean var = (boolean) obj;
+
+			if (var)
+				return "Sim";
+			else
+				return "Não";
+		}
+
+		return obj.toString();
 	}
 }
