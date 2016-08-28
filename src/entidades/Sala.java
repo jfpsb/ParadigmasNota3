@@ -33,7 +33,7 @@ public class Sala {
 	 * @param nLin Numero de Linhas da Sala
 	 */
 	public Sala(){}
-	public Sala (String nome, int nCol, int nLin) {
+	public Sala (String nome, int nLin, int nCol) {
 		this.nome = nome;
 		this.nCol = nCol;
 		this.nLin = nLin;

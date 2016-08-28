@@ -2,6 +2,7 @@ package formulario.gerencia.sala;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -10,6 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
+import aplicacao.manager.SalasManager;
+import entidades.Filme;
+import entidades.Sala;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 import outrasclasses.ChecarTela;
@@ -26,6 +30,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 	private JInternalFrame owner = this;
 
 	private TelaSalaCadastro cadastrarSala;
+	private List<Sala> salas;
 
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
@@ -56,17 +61,33 @@ public class TelaSala extends TelaBaseEntidadeControles {
 	}
 	@Override
 	public void createTable() {
+		//Esse teste é feito porque no começo do programa, não há como remover.
+		try{	
+			this.remove(barraRolagem);
+			this.repaint();
+		}catch(Exception e){
+			//Nothing to do
+		}
 		tableEntidade = null;
-		String [] colunas = {"Nome", "Quantidade de Poltronas"};
-		Object [][] dados;
-		dados = new Object[3][colunas.length];
+		String [] colunas = {"Nome", "Linhas", "Colunas"};
+		salas = SalasManager.listarSalas();
+		dados = new Object[salas.size()][colunas.length];
+		int i = 0;
+		for(Sala s :salas){
+			dados[i][0] = s.getNome();
+			dados[i][1] = s.getnLin();
+			dados[i][2] = s.getnCol();
+			i++;
+		}
 		//povoar tabela aqui
 		tableEntidade = new JTable(dados, colunas);	
+		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
 		barraRolagem = new JScrollPane(tableEntidade);
 		this.add(barraRolagem);
-
+		this.validate();
+		this.repaint();
 	}
 
 }
