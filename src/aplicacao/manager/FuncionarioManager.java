@@ -3,7 +3,6 @@ package aplicacao.manager;
 import java.util.ArrayList;
 import java.util.List;
 
-import entidades.Filme;
 import entidades.Funcionario;
 import util.DAO;
 

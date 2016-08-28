@@ -1,6 +1,7 @@
 package aplicacao.manager;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import entidades.Registro;
@@ -24,10 +25,10 @@ public class RegistroManager {
 	 *            Data em que registro foi feito.
 	 * @return True se a inserção foi bem sucedida, false se não.
 	 */
-	public static boolean criarRegistro(String msg, Timestamp data) {
+	public static boolean criarRegistro(String msg) {
 
 		if (!msg.isEmpty()) {
-			Registro registro = new Registro(msg, data);
+			Registro registro = new Registro(msg, Timestamp.valueOf(LocalDateTime.now()));
 			dao.salva(registro);
 			return true;
 		}
@@ -40,7 +41,9 @@ public class RegistroManager {
 	  * 
 	  * @return Lista de registros.
 	  */
-	public static List<Registro> listarFilmes(){
+	public static List<Registro> listarRegistro(){
 		return dao.listar();
 	}
+	
+	//TODO: Retornar um arquivo com o registro
 }
