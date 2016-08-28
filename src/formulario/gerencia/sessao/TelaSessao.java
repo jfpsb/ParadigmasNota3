@@ -73,6 +73,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
+		btnAlterarSelecao.setEnabled(false);
 	}
 	@Override
 	public void createTable() {
