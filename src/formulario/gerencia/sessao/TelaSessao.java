@@ -59,7 +59,18 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			}
 
 		});
-		btnAlterarSelecao.disable();
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!SessaoManager.removerSessao(getSelectedSessao(), false)){
+					JOptionPane.showMessageDialog(null, "Erro ao Remover", "Erro ao remover sessao. Ela deve ter reservas!",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				createTable();
+				
+			}
+		});
 	}
 	@Override
 	public void createTable() {
@@ -92,5 +103,8 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 		this.add(barraRolagem);
 		this.validate();
 		this.repaint();
+	}
+	private Sessao getSelectedSessao(){
+		return sessoes.get(tableEntidade.getSelectedRow());
 	}
 }
