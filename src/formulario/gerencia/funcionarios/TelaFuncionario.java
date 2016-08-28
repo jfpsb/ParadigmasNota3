@@ -1,14 +1,20 @@
 package formulario.gerencia.funcionarios;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
+import javax.swing.tree.DefaultTreeCellEditor.EditorContainer;
 
+import aplicacao.manager.FuncionarioManager;
+import entidades.Filme;
+import entidades.Funcionario;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 
@@ -20,9 +26,11 @@ import formulario.gerencia.TelaBaseEntidadeControles;
  */
 public class TelaFuncionario extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
+	private TelaFuncionario telaFuncionario = this; 
 
 	private TelaFuncionarioCadastro cadastrarFuncionario;
-
+	private Object [][] dados;
+	private List<Funcionario> funcionarios;
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
@@ -36,7 +44,7 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 				try {
 					checaTelaAberta(cadastrarFuncionario);
 
-					cadastrarFuncionario = new TelaFuncionarioCadastro();
+					cadastrarFuncionario = new TelaFuncionarioCadastro(telaFuncionario);
 
 					cadastrarFuncionario.mostrarTela();
 				} catch (TelaAbertaException e1) {
@@ -48,6 +56,22 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 				}
 			}
 
+		});
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				FuncionarioManager.removerFuncionario(getSelectedFuncionario(ONLYSHOW));
+				createTable();
+			}
+		});
+		btnAlterarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FuncionarioManager.atualizarFuncionario(getSelectedFuncionario(EDITSELECTED));
+				createTable();				
+			}
 		});
 	}
 
@@ -62,16 +86,43 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 	}
 	@Override
 	public void createTable() {
+		//Esse teste é feito porque no começo do programa, não há como remover.
+		try{	
+			this.remove(barraRolagem);
+			this.repaint();
+		}catch(Exception e){
+			//Nothing to do
+		}
 		tableEntidade = null;
-		String [] colunas = {"Nome"};
-		Object [][] dados;
-		dados = new Object[3][colunas.length];
-		//povoar tabela aqui
-		tableEntidade = new JTable(dados, colunas);	
+		String [] colunas = {"Nome"};		
+		funcionarios  = FuncionarioManager.listarFuncionarios();
+		dados = new Object[funcionarios.size()][colunas.length];
+		int i = 0;
+		for(Funcionario f : funcionarios){
+			dados[i][0] = f.getNome();
+			i++;
+		}
+		tableEntidade = new JTable(dados, colunas);
+		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
 		barraRolagem = new JScrollPane(tableEntidade);
 		this.add(barraRolagem);		
+		this.validate();
+		this.repaint();
+	}
+	/**
+	 * Mostra o selecionado, e caso necessário edita este
+	 */
+	private Funcionario getSelectedFuncionario(int code){
+		int row = tableEntidade.getSelectedRow();
+		String nome = dados[row][0].toString();			
+		JOptionPane.showMessageDialog(null, "Nome: "+nome);
+		Funcionario funcionario = funcionarios.get(row);
+		if(code == EDITSELECTED){
+			funcionario.setNome(nome);
+		}
+		return funcionario;
 	}
 
 }

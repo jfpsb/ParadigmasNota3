@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import aplicacao.manager.SalasManager;
+
 /**
  * Classe onde são configurados os listeners da tela de cadastro de salas.
  * 
@@ -17,7 +19,7 @@ public class TelaSalaCadastro extends TelaSalaCadastroControles {
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaSalaCadastro() {
+	public TelaSalaCadastro(TelaSala telaSala) {
 		super();
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -34,10 +36,10 @@ public class TelaSalaCadastro extends TelaSalaCadastroControles {
 
 					if (nome.isEmpty())
 						throw new IllegalArgumentException("O nome tem que ser informado.");
-
-					// TODO Implementar o código para salvar no BD
-
+					SalasManager.criarSala(nome, nLin, nCol);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nColunas: " + nCol + "\nLinhas: " + nLin);
+					telaSala.createTable();
+					dispose();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);

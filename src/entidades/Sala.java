@@ -1,6 +1,7 @@
 package entidades;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
@@ -9,6 +10,7 @@ import javax.persistence.Id;
  * Classe que representa uma sala de Cinema
  *
  */
+@Entity
 public class Sala {
 
 	@Id
@@ -30,7 +32,8 @@ public class Sala {
 	 * @param nCol Numero de Colunas da Sala
 	 * @param nLin Numero de Linhas da Sala
 	 */
-	public Sala (String nome, int nCol, int nLin) {
+	public Sala(){}
+	public Sala (String nome, int nLin, int nCol) {
 		this.nome = nome;
 		this.nCol = nCol;
 		this.nLin = nLin;

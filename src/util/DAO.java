@@ -24,7 +24,7 @@ public class DAO<T> {
 	 * @param classe Tipo de uma classe.
 	 */
 	public DAO(Class<T> classe) {
-		this.em = new JPAUtil().getEntityManager();
+		this.em = JPAUtil.getEntityManagerChild();
 		this.classe = classe;
 	}
 	
@@ -36,7 +36,6 @@ public class DAO<T> {
 		this.em.getTransaction().begin();
 		this.em.persist(t);
 		this.em.getTransaction().commit();
-		this.em.close();
 	}
 	
 	/**
@@ -48,7 +47,6 @@ public class DAO<T> {
 		this.em.getTransaction().begin();
 		this.em.remove(em.merge(t));
 		this.em.getTransaction().commit();
-		this.em.close();
 	}
 	
 	/**
@@ -60,7 +58,6 @@ public class DAO<T> {
 		this.em.getTransaction().begin();
 		this.em.merge(t);
 		this.em.getTransaction().commit();
-		this.em.close();
 	}
 	
 	/**
@@ -82,7 +79,6 @@ public class DAO<T> {
 		CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(classe);
 		query.select(query.from(classe));
 		List<T> lista = em.createQuery(query).getResultList();
-		em.close();
 		return lista;
 	}
 	
@@ -92,7 +88,7 @@ public class DAO<T> {
 	 * @param sql SQl Script.
 	 * @return Retorna uma lista de resultados do Object, retorna null caso o comando em SQL não execute ou retorna vazio caso o não exista retorno após execução.
 	 */
-	public List<Object> ExecuteSQL(String sql) {										
+	public List<Object> ExecuteSQL(String sql) {
 		return em.createQuery(sql).getResultList();									
 	}
 	
@@ -102,9 +98,8 @@ public class DAO<T> {
 	 * @param sql SQl Script.
 	 * @return Retorna verdadeiro caso o SQL Script retorne vazio.
 	 */
-	public Boolean ExecuteSQLisEmpty(String sql) {											
+	public Boolean ExecuteSQLisEmpty(String sql) {
 		return !em.createQuery(sql).getResultList().isEmpty();						
 	}																					
 	
-
 }

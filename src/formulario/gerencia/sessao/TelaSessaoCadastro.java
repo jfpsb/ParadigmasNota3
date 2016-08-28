@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+import aplicacao.manager.SessaoManager;
+
 /**
  * Classe onde são configurados os listeners da tela de cadastro de sessões.
  * 
@@ -18,7 +20,7 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaSessaoCadastro() {
+	public TelaSessaoCadastro(TelaSessao telaSessao) {
 		super();
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -38,10 +40,12 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 					tresD = chk3D.isSelected();
 					preco = Double.parseDouble(txtPreco.getText());
 
-					// TODO colocar o método de salvar em BD
+					//SessaoManager.
 
 					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
 							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
+					telaSessao.createTable();
+					dispose();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);

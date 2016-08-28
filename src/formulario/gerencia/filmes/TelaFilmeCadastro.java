@@ -9,6 +9,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import aplicacao.manager.FilmesManager;
 import arquivo.CopiarArquivo;
 
 /**
@@ -19,15 +20,14 @@ import arquivo.CopiarArquivo;
  */
 public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 	private static final long serialVersionUID = 1L;
-
 	private File arquivo = null;
 
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaFilmeCadastro() {
+	public TelaFilmeCadastro(TelaFilme telaFilme) {
 		super();
-
+		
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -47,9 +47,11 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 						throw new IllegalArgumentException("O nome do filme não pode ser vazio!");
 
 					// TODO Implementar código para salvar filme no BD
-
+					FilmesManager.criarFilme(nome, sinopse, imagem, duracao);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
 							+ duracao + "\nImagem: " + imagem);
+					telaFilme.createTable();
+					dispose();
 
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "A duração tem que ser informada em número de minutos.",
@@ -71,10 +73,9 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
-
-				fileChooser.addChoosableFileFilter(
-						new FileNameExtensionFilter("Imagens", ImageIO.getReaderFileSuffixes()));
-
+				fileChooser.removeChoosableFileFilter(fileChooser.getFileFilter());
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Imagens", ImageIO.getReaderFileSuffixes()));
+				
 				arquivo = null;
 
 				int result = fileChooser.showOpenDialog(null);

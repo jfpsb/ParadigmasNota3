@@ -1,6 +1,7 @@
 package formulario.gerencia;
 
 import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,15 +25,16 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	protected SpringLayout springLayout;
 	protected JButton btnCadastrarNovo;
 	protected JButton btnDeletarSelecao;
-	protected JButton btnAlterarSelecao;// A posição destes botões na tela vão
-										// ser configuradas na classe que
-										// herdar esta
+	protected JButton btnAlterarSelecao;
+	protected JButton btnGerarRelatorio;
 	protected JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
 	protected JScrollPane barraRolagem; // colunas desta tabela será configurada
-										// na
+	// na
 	// tela que herdar esta classe
 	private JMenuBar menuBar;
-
+	protected Object [][] dados;//dados da tabela
+	protected static final int EDITSELECTED = 23;
+	protected static final int ONLYSHOW = 24;
 	public TelaBaseEntidadeControles(String titulo) {
 		super(titulo);
 		inicializarControles();
@@ -48,16 +50,17 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 		btnCadastrarNovo = new JButton("Cadastrar Novo");
 		btnDeletarSelecao = new JButton("Deletar Selecionado");
 		btnAlterarSelecao = new JButton("Atualizar Selecionado");
+		btnGerarRelatorio = new JButton("Gerar Relatório");
 
-		// btnCadastrarNovo.setBackground(new Color(240, 240, 240));
-		// btnCadastrarNovo.setFont(btnCadastrarNovo.getFont().deriveFont(14f));
 		this.applyButtonTheme(btnCadastrarNovo);
 		this.applyButtonTheme(btnDeletarSelecao);
 		this.applyButtonTheme(btnAlterarSelecao);
+		this.applyButtonTheme(btnGerarRelatorio);
 
 		menuBar.add(btnCadastrarNovo);
 		menuBar.add(btnAlterarSelecao);
 		menuBar.add(btnDeletarSelecao);
+		menuBar.add(btnGerarRelatorio);
 
 		this.setJMenuBar(menuBar);
 
@@ -90,4 +93,21 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	 * Cria a Tabela que mostra os elementos
 	 */
 	public abstract void createTable();
+	/**
+	 * 
+	 * @param table
+	 * Função que organiza a altura das linhas
+	 */
+	protected void updateRowHeights(JTable table){
+	    for (int row = 0; row < table.getRowCount(); row++)
+	    {
+	        int rowHeight = table.getRowHeight();
+	        for (int column = 0; column < table.getColumnCount(); column++){
+	            Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+	            rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+	        }
+
+	        table.setRowHeight(row, rowHeight);
+	    }
+	}
 }

@@ -39,7 +39,7 @@ public class FuncionarioManager {
 	 * @param filme
 	 *            Entidade de funcionário.
 	 */
-	public static void removerFilme(Funcionario f) {
+	public static void removerFuncionario(Funcionario f) {
 		dao.remover(f);
 	}
 
@@ -49,7 +49,7 @@ public class FuncionarioManager {
 	 * @param filme
 	 *            Entidade de Funcionário.
 	 */
-	public static void atualizarFilme(Funcionario f) {
+	public static void atualizarFuncionario(Funcionario f) {
 		dao.atualizar(f);
 	}
 

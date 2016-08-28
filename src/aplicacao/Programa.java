@@ -1,6 +1,7 @@
 package aplicacao;
 
 import formulario.telaprincipal.TelaPrincipal;
+import util.JPAUtil;
 
 /**
  * Início da aplicação.
@@ -11,8 +12,8 @@ import formulario.telaprincipal.TelaPrincipal;
 public class Programa {
 
 	public static void main(String[] args) {
-		//FilmesManager.CriarFilme("auihsdua", true, true, "sinopse", "imagem", 100);
 		new TelaPrincipal().mostrarTela();
+		JPAUtil.closeEntityManagerChild();
 	}
 
 }
