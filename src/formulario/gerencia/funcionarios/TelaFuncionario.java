@@ -56,6 +56,14 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 			}
 
 		});
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				FuncionarioManager.removerFuncionario(getSelectedFuncionario(ONLYSHOW));
+				createTable();
+			}
+		});		
 	}
 
 	/**
@@ -94,6 +102,9 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 		this.validate();
 		this.repaint();
 	}
+	/**
+	 * Mostra o selecionado, e caso necessário edita este
+	 */
 	private Funcionario getSelectedFuncionario(int code){
 		int row = tableEntidade.getSelectedRow();
 		String nome = dados[row][0].toString();			
