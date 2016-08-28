@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.time.LocalDateTime;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -44,7 +45,9 @@ public class TelaVenda extends TelaVendaControles{
 		}
 		LocalDateTime data = datePicker.getDateTimeStrict();
 		sessoes = SessaoManager.listarSessaoPorHorario(data);
-		
+		if(sessoes.isEmpty()){
+			return ;
+		}
 		String[] colunas = new String[sessoes.size()];
 		dados = new Object[5][sessoes.size()];	
 		int i = 0;
