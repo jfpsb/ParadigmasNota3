@@ -95,6 +95,14 @@ public class Sala {
 		return id;
 	}
 	
+	/**
+	 * Retorna o numero máximo de poltronas
+	 * @return Inteiro o valor de poltronas
+	 */
+	public int getMaximoDePoltronas(){
+		return nCol * nLin;
+	}
+	
 	
 	
 	

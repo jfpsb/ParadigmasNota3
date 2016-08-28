@@ -59,6 +59,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			}
 
 		});
+		btnAlterarSelecao.disable();
 	}
 	@Override
 	public void createTable() {
@@ -81,6 +82,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			dados[i][3] = s.isLegendado();
 			dados[i][4] = s.isIs3D();
 			dados[i][5] = s.getPreco();
+			i++;
 		}
 		tableEntidade = new JTable(dados, colunas);	
 		updateRowHeights(tableEntidade);

@@ -13,7 +13,10 @@
 		<class>entidades.Sala</class>
 		<class>entidades.Sessao</class>
 		<class>entidades.Funcionario</class>
-		      
+		<class>entidades.Registro</class>
+		<class>entidades.Reserva</class>
+		<class>entidades.Ingresso</class>
+				      
 	<properties>
        
 			<!-- poderia ser: create,create-drop -->
