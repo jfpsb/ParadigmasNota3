@@ -17,6 +17,20 @@ public class JPAUtil {
 	 * 
 	 */
 	public static EntityManagerFactory factory = Persistence.createEntityManagerFactory("AwesomeMovies");
+	private static EntityManager EntityManagerChild = null;
+	
+	public static EntityManager getEntityManagerChild() {
+		if(EntityManagerChild == null || !EntityManagerChild.isOpen()) EntityManagerChild = new JPAUtil().getEntityManager();
+		return EntityManagerChild;
+	}
+	
+	public static void closeEntityManagerChild() {
+		EntityManagerChild.close();
+	}
+	
+	public static void setEntityManagerChild(EntityManager entityManagerChild) {
+		EntityManagerChild = entityManagerChild;
+	}
 	
 	/**
 	 * Retorna uma EntityManager definido pela EntityManagerFactory
@@ -26,5 +40,7 @@ public class JPAUtil {
 	public EntityManager getEntityManager(){	
 		return factory.createEntityManager();
 	}
+	
+	
 	
 }
