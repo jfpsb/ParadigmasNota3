@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
+import javax.swing.tree.DefaultTreeCellEditor.EditorContainer;
 
 import aplicacao.manager.FuncionarioManager;
 import entidades.Filme;
@@ -63,7 +64,15 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 				FuncionarioManager.removerFuncionario(getSelectedFuncionario(ONLYSHOW));
 				createTable();
 			}
-		});		
+		});
+		btnAlterarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				FuncionarioManager.atualizarFuncionario(getSelectedFuncionario(EDITSELECTED));
+				createTable();				
+			}
+		});
 	}
 
 	/**
