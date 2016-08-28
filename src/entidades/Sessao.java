@@ -49,6 +49,7 @@ public class Sessao {
 	 * @param is3d
 	 * @param preco
 	 */
+	public Sessao(){}
 	public Sessao(Sala sala, Filme filme, LocalDateTime data, boolean isLegendado, boolean is3d, double preco) {
 		this.sala = sala;
 		this.filme = filme;

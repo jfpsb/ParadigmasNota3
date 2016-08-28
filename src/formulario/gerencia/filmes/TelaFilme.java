@@ -2,6 +2,8 @@ package formulario.gerencia.filmes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
@@ -10,6 +12,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
+import aplicacao.manager.FilmesManager;
+import entidades.Filme;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 
@@ -69,10 +73,17 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 	public void createTable() {
 		tableEntidade = null;
 		String [] colunas = {"Nome", "Sinopse", "Duração"};
-		Object [][] dados;
-		dados = new Object[3][colunas.length];
-		//povoar tabela aqui
+		List<Filme> filmes = FilmesManager.listarFilmes();
+		Object [][] dados = new Object[filmes.size()][colunas.length];
+		int i = 0;
+		for(Filme f : filmes){
+			dados[i][0] = f.getNome();
+			dados[i][1] = f.getSinopse();
+			dados[i][2] = f.getDuracao();
+			i++;
+		}
 		tableEntidade = new JTable(dados, colunas);	
+		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
 		barraRolagem = new JScrollPane(tableEntidade);

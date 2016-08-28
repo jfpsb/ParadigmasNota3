@@ -28,6 +28,7 @@ public class Funcionario {
 	 * @param nome
 	 *            Nome de Funcionário
 	 */
+	public Funcionario(){}
 	public Funcionario(String nome) {
 		this.nome = nome;
 	}

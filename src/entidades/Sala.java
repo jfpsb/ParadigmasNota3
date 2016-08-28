@@ -32,6 +32,7 @@ public class Sala {
 	 * @param nCol Numero de Colunas da Sala
 	 * @param nLin Numero de Linhas da Sala
 	 */
+	public Sala(){}
 	public Sala (String nome, int nCol, int nLin) {
 		this.nome = nome;
 		this.nCol = nCol;
