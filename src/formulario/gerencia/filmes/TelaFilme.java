@@ -27,6 +27,8 @@ import formulario.gerencia.TelaBaseEntidadeControles;
  */
 public class TelaFilme extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
+	private static final int EDITSELECTED = 23;
+	private static final int ONLYSHOW = 24;
 	private JInternalFrame owner = this;
 	private TelaFilmeCadastro cadastrarFilme;
 	private Object [][] dados;
@@ -61,15 +63,17 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		btnDeletarSelecao.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				int row = tableEntidade.getSelectedRow();
-				String nome = dados[row][0].toString();
-				String sinopse = dados[row][1].toString();
-				String imagem  = dados[row][2].toString();
-				int duracao = Integer.parseInt(dados[row][3].toString());
-				JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);				
-				FilmesManager.removerFilme(filmes.get(row));
+			public void actionPerformed(ActionEvent arg0) {					
+				FilmesManager.removerFilme(getSelectedMovie(ONLYSHOW));
 				createTable();
+			}
+		});
+		btnAlterarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {												
+				FilmesManager.atualizarFilme(getSelectedMovie(EDITSELECTED));
+				createTable();				
 			}
 		});
 	}
@@ -86,12 +90,12 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 
 	@Override
 	public void createTable() {
-		
+		//Esse teste é feito porque no começo do programa, não há como remover.
 		try{	
 			this.remove(barraRolagem);
 			this.repaint();
 		}catch(Exception e){
-			System.out.println("deu ruim");
+			//Nothing to do
 		}
 		tableEntidade = null;
 		String [] colunas = {"Nome", "Sinopse", "Imagem", "Duração"};
@@ -116,5 +120,24 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		//this.mostrarTela();
 		
 		//System.out.println("chamou-------------------------------------------------"+filmes.size());
+	}
+	/**
+	 * Mostra o selecionado, e caso necessário edita este
+	 */
+	private Filme getSelectedMovie(int code){
+		int row = tableEntidade.getSelectedRow();
+		String nome = dados[row][0].toString();
+		String sinopse = dados[row][1].toString();
+		String imagem  = dados[row][2].toString();
+		int duracao = Integer.parseInt(dados[row][3].toString());
+		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
+		Filme filme = filmes.get(row);
+		if(code == EDITSELECTED){
+			filme.setNome(nome);
+			filme.setDuracao(duracao);
+			filme.setImagem(imagem);
+			filme.setSinopse(sinopse);
+		}
+		return filme;
 	}
 }
