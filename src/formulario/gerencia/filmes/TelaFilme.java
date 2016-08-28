@@ -126,7 +126,12 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		String nome = dados[row][0].toString();
 		String sinopse = dados[row][1].toString();
 		String imagem  = dados[row][2].toString();
-		int duracao = Integer.parseInt(dados[row][3].toString());
+		int duracao;
+		try{
+			duracao = Integer.parseInt(dados[row][3].toString());
+		}catch(NumberFormatException e){
+			duracao = 0;
+		}
 		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
 		Filme filme = filmes.get(row);
 		if(code == EDITSELECTED){

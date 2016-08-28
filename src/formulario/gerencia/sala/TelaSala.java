@@ -89,5 +89,25 @@ public class TelaSala extends TelaBaseEntidadeControles {
 		this.validate();
 		this.repaint();
 	}
+	private Sala getSelectedSala(int code){
+		int row = tableEntidade.getSelectedRow();
+		String nome = dados[row][0].toString();
+		int l, c;
+		try{
+			l = Integer.parseInt(dados[row][1].toString());
+			c = Integer.parseInt(dados[row][2].toString());
+		}catch(NumberFormatException e){
+			l = 0;
+			c = 0;
+		}
+		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nLinhas: " + l + "\nColunas: "+ c);
+		Sala sala = salas.get(row);
+		if(code == EDITSELECTED){
+			sala.setNome(nome);
+			sala.setnLin(l);
+			sala.setnCol(c);
+		}
+		return sala;
+	}
 
 }
