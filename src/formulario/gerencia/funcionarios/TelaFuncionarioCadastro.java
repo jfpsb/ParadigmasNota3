@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import aplicacao.manager.FuncionarioManager;
+
 /**
  * Classe onde são configurados os listeners da tela de cadastro de
  * funcionários.
@@ -18,7 +20,7 @@ public class TelaFuncionarioCadastro extends TelaFuncionarioCadastroControles {
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaFuncionarioCadastro() {
+	public TelaFuncionarioCadastro(TelaFuncionario telaFuncionario) {
 		super();
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -33,9 +35,9 @@ public class TelaFuncionarioCadastro extends TelaFuncionarioCadastroControles {
 					if (nome.isEmpty())
 						throw new IllegalArgumentException("O nome tem que ser informado.");
 
-					// TODO Implementar o código para salvar no BD
-
+					FuncionarioManager.criarFuncionario(nome);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome);
+					telaFuncionario.createTable();
 					dispose();
 				} catch (IllegalArgumentException iae) {
 					JOptionPane.showMessageDialog(null, iae.getMessage(), "Erro em dados digitados!",
