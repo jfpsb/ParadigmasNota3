@@ -3,7 +3,6 @@ package aplicacao.manager;
 import java.sql.Timestamp;
 import java.util.List;
 
-import entidades.Filme;
 import entidades.Registro;
 import util.DAO;
 
