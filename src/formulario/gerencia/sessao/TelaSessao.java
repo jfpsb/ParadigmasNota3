@@ -64,11 +64,13 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(!SessaoManager.removerSessao(getSelectedSessao(), false)){
-					JOptionPane.showMessageDialog(null, "Erro ao Remover", "Erro ao remover sessao. Ela deve ter reservas!",
+					JOptionPane.showMessageDialog(null,  "Erro ao remover sessao. Ela deve ter reservas!", "Erro ao Remover",
 							JOptionPane.ERROR_MESSAGE);
+					return ;
 				}
 				createTable();
-				
+				JOptionPane.showMessageDialog(null, "Removido", "Removido com Sucesso",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 	}

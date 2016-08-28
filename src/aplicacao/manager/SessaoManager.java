@@ -101,7 +101,7 @@ public class SessaoManager {
 		
 		daoSessao.remover(sessao);
 		
-		return false;
+		return true;
 	}
 	
 	/**
@@ -212,8 +212,7 @@ public class SessaoManager {
 	 * @return Lista com as reservas
 	 */
 	public static List<Reserva> listarReservas(){
-		daoReserva.listar();
-		return null;
+		return daoReserva.listar();
 	}
 	
 	/**
