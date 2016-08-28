@@ -60,6 +60,15 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			}
 
 		});
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SalasManager.removerSala(getSelectedSala(ONLYSHOW));
+				createTable();
+				
+			}
+		});
 		btnAlterarSelecao.addActionListener(new ActionListener() {
 			
 			@Override
