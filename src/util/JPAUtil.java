@@ -19,17 +19,21 @@ public class JPAUtil {
 	public static EntityManagerFactory factory = Persistence.createEntityManagerFactory("AwesomeMovies");
 	private static EntityManager EntityManagerChild = null;
 	
+	/**
+	 * Retorna um EntityManager que pode ser usado para conexão e cria um caso esteja fechado ou inexistente
+	 * @return Retorna um Entitymanager
+	 */
 	public static EntityManager getEntityManagerChild() {
 		if(EntityManagerChild == null || !EntityManagerChild.isOpen()) EntityManagerChild = new JPAUtil().getEntityManager();
 		return EntityManagerChild;
 	}
 	
+	/**
+	 * Fecha a conexão EntityManager existente
+	 */
 	public static void closeEntityManagerChild() {
+		if(EntityManagerChild != null)
 		EntityManagerChild.close();
-	}
-	
-	public static void setEntityManagerChild(EntityManager entityManagerChild) {
-		EntityManagerChild = entityManagerChild;
 	}
 	
 	/**
