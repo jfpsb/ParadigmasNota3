@@ -2,6 +2,7 @@ package formulario.gerencia.sessao;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,6 +10,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
+import aplicacao.manager.FilmesManager;
+import aplicacao.manager.SalasManager;
+import entidades.Filme;
+import entidades.Sala;
+import entidades.Sessao;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaBaseEntidadeControles;
 import outrasclasses.ChecarTela;
@@ -24,13 +30,14 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
 
 	private TelaSessaoCadastro cadastrarSessao;
-
+	private TelaSessao telaSessao = this;
+	private List<Sessao> sessoes;	
+	
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
 	public TelaSessao() {
 		super("Opções de Sessão");
-
 		btnCadastrarNovo.addActionListener(new ActionListener() {
 
 			@Override
@@ -38,7 +45,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 				try {
 					ChecarTela.checaTelaAberta(cadastrarSessao);
 
-					cadastrarSessao = new TelaSessaoCadastro();
+					cadastrarSessao = new TelaSessaoCadastro(telaSessao);
 
 					cadastrarSessao.mostrarTela();
 				} catch (TelaAbertaException e1) {

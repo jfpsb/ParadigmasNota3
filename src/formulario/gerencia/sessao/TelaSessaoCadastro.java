@@ -18,7 +18,7 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaSessaoCadastro() {
+	public TelaSessaoCadastro(TelaSessao telaSessao) {
 		super();
 
 		btnCadastrar.addActionListener(new ActionListener() {
@@ -42,6 +42,7 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 
 					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
 							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
+					telaSessao.createTable();
 					dispose();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",

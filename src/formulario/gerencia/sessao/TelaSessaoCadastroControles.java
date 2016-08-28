@@ -1,6 +1,7 @@
 package formulario.gerencia.sessao;
 
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -15,6 +16,11 @@ import javax.swing.SpringLayout;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
+
+import aplicacao.manager.FilmesManager;
+import aplicacao.manager.SalasManager;
+import entidades.Filme;
+import entidades.Sala;
 
 /**
  * Classe onde são configurados os controles da tela de cadastrar sessões.
@@ -42,6 +48,8 @@ public class TelaSessaoCadastroControles extends JFrame {
 	protected JCheckBox chk3D;
 	protected JTextField txtPreco;
 	protected JButton btnCadastrar;
+	protected List<Filme> filmes;
+	protected List<Sala> salas;
 
 	/**
 	 * Chama construtor da superclasse e inicializa elementos da UI.
@@ -55,11 +63,24 @@ public class TelaSessaoCadastroControles extends JFrame {
 	 * Inicializa e instancia elementos da UI.
 	 */
 	private void inicializarControles() {
+		filmes = FilmesManager.listarFilmes();
+		salas = SalasManager.listarSalas();
+		
 		springLayout = new SpringLayout();
 		panelPrincipal = new JPanel(springLayout);
 
-		String[] placeholder1 = { "placeholder1", "placeholder2", "placeholder3", "placeholder4" };
-		String[] placeholder2 = { "placeholder1", "placeholder2", "placeholder3", "placeholder4" };
+		String[] placeholder1 = new String[salas.size()];
+		int i = 0;
+		for(Sala s : salas){
+			placeholder1[i] = s.getNome();
+			i++;
+		}
+		String[] placeholder2 = new String[filmes.size()];
+		i = 0;
+		for(Filme f : filmes){
+			placeholder2[i] = f.getNome();
+			i++;
+		}
 
 		dateSettings = new DatePickerSettings();
 		timeSettings = new TimePickerSettings();
