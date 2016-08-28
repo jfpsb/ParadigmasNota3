@@ -21,7 +21,7 @@ public class SalasManager {
 	 * @param nLin Número máximo de Linhas da Sala.
 	 * @return Retorna verdadeiro se a sala foi criada.
 	 */
-	public static boolean criarSala(String nome, int nCol, int nLin){
+	public static boolean criarSala(String nome, int nLin, int nCol){
 		if(nCol > 0  && nLin > 0){
 			Sala sala = new Sala(nome, nCol, nLin);
 			dao.salva(sala);

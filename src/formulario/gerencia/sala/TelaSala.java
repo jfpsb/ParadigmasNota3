@@ -31,6 +31,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 
 	private TelaSalaCadastro cadastrarSala;
 	private List<Sala> salas;
+	private TelaSala telaSala = this;
 
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
@@ -45,7 +46,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 				try {
 					ChecarTela.checaTelaAberta(cadastrarSala);
 
-					cadastrarSala = new TelaSalaCadastro();
+					cadastrarSala = new TelaSalaCadastro(telaSala);
 
 					cadastrarSala.mostrarTela();
 				} catch (TelaAbertaException e1) {
