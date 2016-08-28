@@ -42,6 +42,7 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 
 					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
 							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
+					dispose();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);

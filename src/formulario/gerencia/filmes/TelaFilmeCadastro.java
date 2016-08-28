@@ -51,6 +51,7 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 					FilmesManager.criarFilme(nome, sinopse, imagem, duracao);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
 							+ duracao + "\nImagem: " + imagem);
+					dispose();
 
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "A duração tem que ser informada em número de minutos.",

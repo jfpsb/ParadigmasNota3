@@ -38,6 +38,7 @@ public class TelaSalaCadastro extends TelaSalaCadastroControles {
 					// TODO Implementar o código para salvar no BD
 
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nColunas: " + nCol + "\nLinhas: " + nLin);
+					dispose();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Número informado inválido.", "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);

@@ -36,6 +36,7 @@ public class TelaFuncionarioCadastro extends TelaFuncionarioCadastroControles {
 					// TODO Implementar o código para salvar no BD
 
 					JOptionPane.showMessageDialog(null, "Nome: " + nome);
+					dispose();
 				} catch (IllegalArgumentException iae) {
 					JOptionPane.showMessageDialog(null, iae.getMessage(), "Erro em dados digitados!",
 							JOptionPane.ERROR_MESSAGE);
