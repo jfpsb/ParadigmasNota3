@@ -73,7 +73,6 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 		String [] colunas = {"Sala", "Filme", "Data", "Legendado", "3D", "Preço"};
 		sessoes = SessaoManager.listarSessao();
 		dados = new Object[sessoes.size()][colunas.length];
-		//povoar tabela aqui
 		int i = 0;
 		for(Sessao s:sessoes){
 			dados[i][0] = s.getSala().getNome();

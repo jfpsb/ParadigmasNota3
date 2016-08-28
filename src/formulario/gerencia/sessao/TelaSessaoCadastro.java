@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
+import aplicacao.manager.SessaoManager;
+
 /**
  * Classe onde são configurados os listeners da tela de cadastro de sessões.
  * 
@@ -38,7 +40,7 @@ public class TelaSessaoCadastro extends TelaSessaoCadastroControles {
 					tresD = chk3D.isSelected();
 					preco = Double.parseDouble(txtPreco.getText());
 
-					// TODO colocar o método de salvar em BD
+					//SessaoManager.
 
 					JOptionPane.showMessageDialog(null, "Sala: " + idSala + "\nFilme: " + idFilme + "\nData: " + data
 							+ "\nLegendado: " + legendado + "\n3D: " + tresD + "\nPreço: " + preco);
