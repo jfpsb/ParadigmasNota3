@@ -45,51 +45,50 @@ public class TelaVenda extends TelaVendaControles{
 		}
 		LocalDateTime data = datePicker.getDateTimeStrict();
 		sessoes = SessaoManager.listarSessaoPorHorario(data);
-		if(sessoes.isEmpty()){
-			return ;
+		if(!sessoes.isEmpty()){
+			String[] colunas = new String[sessoes.size()];
+			dados = new Object[5][sessoes.size()];	
+			int i = 0;
+			for(Sessao s:sessoes){
+				colunas[i] = "Sessao "+(i+1);
+				dados[0][i] = new ImageIcon(s.getFilme().getImagem());
+				dados[1][i] = "Filme: "+s.getFilme().getNome();
+				dados[2][i] = "Preço: "+s.getPreco();
+				dados[3][i] = "\nSala: "+s.getSala().getNome();
+				dados[4][i] = "\nData: "+s.getData().toString();
+				i++;
+			}
+			tableSessoes = new JTable(dados, colunas){
+			    public TableCellRenderer getCellRenderer(int row, int column)
+			    {
+			        if (row == 0)
+			        {
+			            Class cellClass = getValueAt(row, column).getClass();
+			            return getDefaultRenderer( cellClass );
+			        }
+	
+			        return super.getCellRenderer(row, column);
+			    }
+			    public boolean isCellEditable(int row, int column){  
+			        return false;  
+			    }  
+			    public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+			           Component component = super.prepareRenderer(renderer, row, column);
+			           int rendererWidth = component.getPreferredSize().width;
+			           TableColumn tableColumn = getColumnModel().getColumn(column);
+			           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
+			           return component;
+			      }
+			};
+			tableSessoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			tableSessoes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+			tableSessoes.setCellSelectionEnabled(true);
+			updateRowHeights(tableSessoes);         
+			barraRolagem = new JScrollPane(tableSessoes);
+			barraRolagem.setHorizontalScrollBarPolicy(
+					   JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+			panelPrincipal.add(barraRolagem, BorderLayout.CENTER);
 		}
-		String[] colunas = new String[sessoes.size()];
-		dados = new Object[5][sessoes.size()];	
-		int i = 0;
-		for(Sessao s:sessoes){
-			colunas[i] = "Sessao "+(i+1);
-			dados[0][i] = new ImageIcon(s.getFilme().getImagem());
-			dados[1][i] = "Filme: "+s.getFilme().getNome();
-			dados[2][i] = "Preço: "+s.getPreco();
-			dados[3][i] = "\nSala: "+s.getSala().getNome();
-			dados[4][i] = "\nData: "+s.getData().toString();
-			i++;
-		}
-		tableSessoes = new JTable(dados, colunas){
-		    public TableCellRenderer getCellRenderer(int row, int column)
-		    {
-		        if (row == 0)
-		        {
-		            Class cellClass = getValueAt(row, column).getClass();
-		            return getDefaultRenderer( cellClass );
-		        }
-
-		        return super.getCellRenderer(row, column);
-		    }
-		    public boolean isCellEditable(int row, int column){  
-		        return false;  
-		    }  
-		    public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
-		           Component component = super.prepareRenderer(renderer, row, column);
-		           int rendererWidth = component.getPreferredSize().width;
-		           TableColumn tableColumn = getColumnModel().getColumn(column);
-		           tableColumn.setPreferredWidth(Math.max(rendererWidth + getIntercellSpacing().width, tableColumn.getPreferredWidth()));
-		           return component;
-		      }
-		};
-		tableSessoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		tableSessoes.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		tableSessoes.setCellSelectionEnabled(true);
-		updateRowHeights(tableSessoes);         
-		barraRolagem = new JScrollPane(tableSessoes);
-		barraRolagem.setHorizontalScrollBarPolicy(
-				   JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-		panelPrincipal.add(barraRolagem, BorderLayout.CENTER);
 		panelPrincipal.validate();
 		panelPrincipal.repaint();
 	}
