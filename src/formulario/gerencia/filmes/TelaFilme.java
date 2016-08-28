@@ -30,6 +30,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 	private JInternalFrame owner = this;
 	private TelaFilmeCadastro cadastrarFilme;
 	private Object [][] dados;
+	List<Filme> filmes;
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
@@ -66,9 +67,8 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 				String sinopse = dados[row][1].toString();
 				String imagem  = dados[row][2].toString();
 				int duracao = Integer.parseInt(dados[row][3].toString());
-				JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
-				Filme f = new Filme(nome, sinopse, imagem, duracao);
-				FilmesManager.removerFilme(f);
+				JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);				
+				FilmesManager.removerFilme(filmes.get(row));
 				createTable();
 			}
 		});
@@ -95,7 +95,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		}
 		tableEntidade = null;
 		String [] colunas = {"Nome", "Sinopse", "Imagem", "Duração"};
-		List<Filme> filmes = FilmesManager.listarFilmes();
+		filmes = FilmesManager.listarFilmes();
 		 dados = new Object[filmes.size()][colunas.length];
 		int i = 0;
 		for(Filme f : filmes){
