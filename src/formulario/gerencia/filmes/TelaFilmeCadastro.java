@@ -20,15 +20,14 @@ import arquivo.CopiarArquivo;
  */
 public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 	private static final long serialVersionUID = 1L;
-
 	private File arquivo = null;
 
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
-	public TelaFilmeCadastro() {
+	public TelaFilmeCadastro(TelaFilme telaFilme) {
 		super();
-
+		
 		btnCadastrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -51,6 +50,7 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 					FilmesManager.criarFilme(nome, sinopse, imagem, duracao);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
 							+ duracao + "\nImagem: " + imagem);
+					telaFilme.createTable();
 					dispose();
 
 				} catch (NumberFormatException nfe) {

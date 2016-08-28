@@ -2,6 +2,8 @@ package formulario.gerencia.filmes;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 	 */
 	public TelaFilme() {
 		super("Opcões de Filmes");
+		TelaFilme telaFilme = this;
 
 		btnCadastrarNovo.addActionListener(new ActionListener() {
 
@@ -43,8 +46,8 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 				try {
 					checaTelaAberta(cadastrarFilme);
 
-					cadastrarFilme = new TelaFilmeCadastro();
-
+					cadastrarFilme = new TelaFilmeCadastro(telaFilme);
+					//cadastrarFilme	
 					cadastrarFilme.mostrarTela();
 				} catch (TelaAbertaException e1) {
 					JOptionPane.showMessageDialog(owner, e1.getMessage(), "Erro em opções de cadastro de filmes!",
@@ -71,6 +74,13 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 
 	@Override
 	public void createTable() {
+		
+		try{	
+			this.remove(barraRolagem);
+			this.repaint();
+		}catch(Exception e){
+			System.out.println("deu ruim");
+		}
 		tableEntidade = null;
 		String [] colunas = {"Nome", "Sinopse", "Duração"};
 		List<Filme> filmes = FilmesManager.listarFilmes();
@@ -86,8 +96,12 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
-		barraRolagem = new JScrollPane(tableEntidade);
+		barraRolagem = new JScrollPane(tableEntidade);		
 		this.add(barraRolagem);
+		this.validate();
+		this.repaint();
+		//this.mostrarTela();
 		
+		//System.out.println("chamou-------------------------------------------------"+filmes.size());
 	}
 }
