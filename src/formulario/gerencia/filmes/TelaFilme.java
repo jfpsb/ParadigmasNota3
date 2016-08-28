@@ -27,11 +27,9 @@ import formulario.gerencia.TelaBaseEntidadeControles;
  */
 public class TelaFilme extends TelaBaseEntidadeControles {
 	private static final long serialVersionUID = 1L;
-
 	private JInternalFrame owner = this;
-
 	private TelaFilmeCadastro cadastrarFilme;
-	
+	private Object [][] dados;
 	/**
 	 * Chama construtor da superclasse e adiciona listeners aos botões.
 	 */
@@ -59,7 +57,21 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			}
 
 		});
-		
+		btnDeletarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				int row = tableEntidade.getSelectedRow();
+				String nome = dados[row][0].toString();
+				String sinopse = dados[row][1].toString();
+				String imagem  = dados[row][2].toString();
+				int duracao = Integer.parseInt(dados[row][3].toString());
+				JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
+				Filme f = new Filme(nome, sinopse, imagem, duracao);
+				FilmesManager.removerFilme(f);
+				createTable();
+			}
+		});
 	}
 
 	/**
@@ -82,14 +94,15 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			System.out.println("deu ruim");
 		}
 		tableEntidade = null;
-		String [] colunas = {"Nome", "Sinopse", "Duração"};
+		String [] colunas = {"Nome", "Sinopse", "Imagem", "Duração"};
 		List<Filme> filmes = FilmesManager.listarFilmes();
-		Object [][] dados = new Object[filmes.size()][colunas.length];
+		 dados = new Object[filmes.size()][colunas.length];
 		int i = 0;
 		for(Filme f : filmes){
 			dados[i][0] = f.getNome();
 			dados[i][1] = f.getSinopse();
-			dados[i][2] = f.getDuracao();
+			dados[i][2] = f.getImagem();
+			dados[i][3] = f.getDuracao();
 			i++;
 		}
 		tableEntidade = new JTable(dados, colunas);	
