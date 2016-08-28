@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpringLayout;
 
+import aplicacao.manager.FilmesManager;
 import aplicacao.manager.SalasManager;
 import entidades.Filme;
 import entidades.Sala;
@@ -59,6 +60,15 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			}
 
 		});
+		btnAlterarSelecao.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				SalasManager.atualizarSala(getSelectedSala(EDITSELECTED));
+				createTable();	
+				
+			}
+		});
 	}
 	@Override
 	public void createTable() {
@@ -95,11 +105,15 @@ public class TelaSala extends TelaBaseEntidadeControles {
 		String nome = dados[row][0].toString();
 		int l, c;
 		try{
-			l = Integer.parseInt(dados[row][1].toString());
-			c = Integer.parseInt(dados[row][2].toString());
+			l = Integer.parseInt(dados[row][1].toString());		
 		}catch(NumberFormatException e){
 			l = 0;
-			c = 0;
+			
+		}
+		try{
+			c = Integer.parseInt(dados[row][2].toString());
+		}catch(NumberFormatException e){
+			c = 0;			
 		}
 		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nLinhas: " + l + "\nColunas: "+ c);
 		Sala sala = salas.get(row);
