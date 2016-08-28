@@ -27,7 +27,7 @@ public class TelaPrincipal extends TelaPrincipalControles {
 	 * Construtor que configura listeners em botões.
 	 */
 	public TelaPrincipal() {
-		// btnVendas
+		super();
 		btnVendas.addActionListener(new ActionListener() {
 
 			@Override
@@ -39,7 +39,8 @@ public class TelaPrincipal extends TelaPrincipalControles {
 				}catch (TelaAbertaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro em opções de gerência!",
 							JOptionPane.ERROR_MESSAGE);
-				} finally {
+				}
+				finally {
 					telaVenda.setState(JFrame.NORMAL);
 					telaVenda.toFront();
 				}
@@ -56,7 +57,6 @@ public class TelaPrincipal extends TelaPrincipalControles {
 					checaTelaAberta(telaGerencia);
 
 					telaGerencia = new TelaGerencia();
-
 					telaGerencia.mostrarTela();
 				} catch (TelaAbertaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro em opções de gerência!",

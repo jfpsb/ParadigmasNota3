@@ -110,7 +110,8 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
-		barraRolagem = new JScrollPane(tableEntidade);		
+		barraRolagem = new JScrollPane(tableEntidade);
+		
 		this.add(barraRolagem);
 		this.validate();
 		this.repaint();
