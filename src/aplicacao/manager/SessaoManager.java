@@ -48,6 +48,38 @@ public class SessaoManager {
 	}
 	
 	/**
+	 * Atualiza uma sessao sessao, se não existirem conflitos de horario e sala, a 
+	 * sessão será criada e persistida no banco.
+	 * @param sessao Sessao a ser atualizada 
+	 * @param sala Referência da Sala.
+	 * @param filme Referência do Filme.
+	 * @param data Data de Inicio da Sessão.
+	 * @param isLegendado Se a sessão é legendado.
+	 * @param is3d Se a sessão é 3D.
+	 * @param preco preço da entrada.
+	 * @return Retorna verdade se a entidade for criada.
+	 */
+	public static boolean atualizarSessão(Sessao sessao, Sala sala, Filme filme, LocalDateTime data, boolean isLegendado, boolean is3d, double preco){
+		
+		List<Sessao> SessoesMarcadas = listarSessaoPorHorario(data);
+		for (Sessao s1 : SessoesMarcadas) {
+			if(s1.getSala().equals(sala)){
+				return false;
+			}
+		}
+		
+		sessao.setSala(sala);
+		sessao.setFilme(filme);
+		sessao.setData(data);
+		sessao.setIs3D(is3d);
+		sessao.setLegendado(isLegendado);
+		sessao.setPreco(preco);
+		daoSessao.atualizar(sessao);
+		
+		return true;
+	}
+	
+	/**
 	 * Remove uma sessao do banco, caso não existam reservas. Se o parametro de ignorar estiver 
 	 * verdadeiro as reservas subsequentes serão removidas.
 	 * @param sessao Sessao a ser removida.
