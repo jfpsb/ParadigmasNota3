@@ -70,7 +70,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 								"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
 					}
 				}catch(ArrayIndexOutOfBoundsException ec){
-					JOptionPane.showMessageDialog(null, "Erro Desconhecido",
+					JOptionPane.showMessageDialog(null, "Erro Desconhecido. Tente Reiniciar o Programa",
 							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
 				}
 				
