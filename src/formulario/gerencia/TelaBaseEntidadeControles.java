@@ -35,15 +35,16 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	protected JButton btnDeletarSelecao;
 	protected JButton btnAlterarSelecao;
 	protected JButton btnGerarRelatorio;
-	protected static JTable tableEntidade; // Posição, tamanho, quantidade de linhas e
+	protected static JTable tableEntidade; // Posição, tamanho, quantidade de
+											// linhas e
 	protected JScrollPane barraRolagem; // colunas desta tabela será configurada
 	// na
 	// tela que herdar esta classe
 	private JMenuBar menuBar;
-	protected Object [][] dados;//dados da tabela
+	protected Object[][] dados;// dados da tabela
 	protected static final int EDITSELECTED = 23;
 	protected static final int ONLYSHOW = 24;
-	
+
 	ActionListener btnRelatorioListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -80,8 +81,7 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 			}
 		}
 	};
-	
-	
+
 	public TelaBaseEntidadeControles(String titulo) {
 		super(titulo);
 		inicializarControles();
@@ -103,7 +103,7 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 		this.applyButtonTheme(btnDeletarSelecao);
 		this.applyButtonTheme(btnAlterarSelecao);
 		this.applyButtonTheme(btnGerarRelatorio);
-		
+
 		btnGerarRelatorio.addActionListener(btnRelatorioListener);
 
 		menuBar.add(btnCadastrarNovo);
@@ -142,24 +142,24 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	 * Cria a Tabela que mostra os elementos
 	 */
 	public abstract void createTable();
+
 	/**
 	 * 
 	 * @param table
-	 * Função que organiza a altura das linhas
+	 *            Função que organiza a altura das linhas
 	 */
-	protected void updateRowHeights(JTable table){
-	    for (int row = 0; row < table.getRowCount(); row++)
-	    {
-	        int rowHeight = table.getRowHeight();
-	        for (int column = 0; column < table.getColumnCount(); column++){
-	            Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
-	            rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
-	        }
+	protected void updateRowHeights(JTable table) {
+		for (int row = 0; row < table.getRowCount(); row++) {
+			int rowHeight = table.getRowHeight();
+			for (int column = 0; column < table.getColumnCount(); column++) {
+				Component comp = table.prepareRenderer(table.getCellRenderer(row, column), row, column);
+				rowHeight = Math.max(rowHeight, comp.getPreferredSize().height);
+			}
 
-	        table.setRowHeight(row, rowHeight);
-	    }
+			table.setRowHeight(row, rowHeight);
+		}
 	}
-	
+
 	/**
 	 * Nome do tipo de entidade sendo salva.
 	 * 
@@ -181,11 +181,7 @@ public abstract class TelaBaseEntidadeControles extends JInternalFrame {
 	private static void chamaEscreveRelatorio(File destino, JFileChooser fileSaver, String nomeTipoEntidade) {
 		if (!destino.toString().endsWith(".xls") && !destino.toString().endsWith(".xlsx"))
 			destino = new File(fileSaver.getSelectedFile().toString() + ".xls");
-		try {
-			CriaRelatorio.escreveRelatorio(tableEntidade, destino, nomeTipoEntidade);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+
+		CriaRelatorio.escreveRelatorio(tableEntidade, destino, nomeTipoEntidade);
 	}
 }

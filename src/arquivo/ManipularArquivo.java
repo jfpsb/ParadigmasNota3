@@ -41,8 +41,7 @@ public class ManipularArquivo {
 			bw.newLine();
 			bw.close();
 		} catch (IOException e) {
-			// TODO Tela se der erro ao escrever
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao escrever em arquivo. \n\n" + e.getMessage());
 		}
 	}
 
@@ -62,16 +61,14 @@ public class ManipularArquivo {
 
 			JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso.");
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao criar arquivo Excel. O caminho especificado não foi encontrado.\n\n" + e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao criar arquivo Excel.\n\n" + e.getMessage());
 		} finally {
 			try {
 				fileOut.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro ao fechar FileOutPutStream.\n\n" + e.getMessage());
 			}
 		}
 	}

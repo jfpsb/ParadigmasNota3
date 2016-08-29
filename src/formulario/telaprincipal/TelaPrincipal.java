@@ -8,16 +8,12 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.SpringLayout;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import aplicacao.manager.SalasManager;
 import aplicacao.manager.SessaoManager;
 import arquivo.CriaRelatorio;
 import entidades.Ingresso;
-import entidades.Sala;
 import excecoes.TelaAbertaException;
 import formulario.gerencia.TelaGerencia;
 import formulario.vendaDeIngressos.TelaVenda;
@@ -44,15 +40,14 @@ public class TelaPrincipal extends TelaPrincipalControles {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try{
+				try {
 					checaTelaAberta(telaVenda);
 					telaVenda = new TelaVenda();
 					telaVenda.mostrarTela();
-				}catch (TelaAbertaException e1) {
+				} catch (TelaAbertaException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage(), "Erro em opções de gerência!",
 							JOptionPane.ERROR_MESSAGE);
-				}
-				finally {
+				} finally {
 					telaVenda.setState(JFrame.NORMAL);
 					telaVenda.toFront();
 				}
@@ -80,12 +75,12 @@ public class TelaPrincipal extends TelaPrincipalControles {
 			}
 
 		});
-		
+
 		btnExport.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				JTable tableEntidade = createTableIngresso();
 				if (tableEntidade.getRowCount() != 0) {
 					JFileChooser fileSaver = new JFileChooser();
@@ -132,36 +127,33 @@ public class TelaPrincipal extends TelaPrincipalControles {
 		if (internalFrame != null && (internalFrame.isVisible() || internalFrame.isDisplayable()))
 			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
-	
-	private static void chamaEscreveRelatorio(File destino, JFileChooser fileSaver, String nomeTipoEntidade, JTable tableEntidade) {
+
+	private static void chamaEscreveRelatorio(File destino, JFileChooser fileSaver, String nomeTipoEntidade,
+			JTable tableEntidade) {
 		if (!destino.toString().endsWith(".xls") && !destino.toString().endsWith(".xlsx"))
 			destino = new File(fileSaver.getSelectedFile().toString() + ".xls");
-		try {
-			CriaRelatorio.escreveRelatorio(tableEntidade, destino, nomeTipoEntidade);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
-	
-	private static JTable createTableIngresso() {
-		//Esse teste é feito porque no começo do programa, não há como remover.
 		
-		String [] colunas = {"Filme", "Sessao", "3D", "Legendado", "Poltrona", "Preço"};
+		CriaRelatorio.escreveRelatorio(tableEntidade, destino, nomeTipoEntidade);
+	}
+
+	private static JTable createTableIngresso() {
+		// Esse teste é feito porque no começo do programa, não há como remover.
+
+		String[] colunas = { "Filme", "Sessao", "3D", "Legendado", "Poltrona", "Preço" };
 		List<Ingresso> ingressos = SessaoManager.listarIngresso();
 		Object[][] dados = new Object[ingressos.size()][colunas.length];
 		int i = 0;
-		for(Ingresso ingresso :ingressos){
+		for (Ingresso ingresso : ingressos) {
 			dados[i][0] = ingresso.getReserva().getSessao().getFilme().getNome();
 			dados[i][1] = ingresso.getReserva().getSessao().getData();
 			dados[i][2] = ingresso.getReserva().getSessao().isIs3D();
 			dados[i][3] = ingresso.getReserva().getSessao().isLegendado();
 			dados[i][4] = "L: " + ingresso.getReserva().getLinha() + " C: " + ingresso.getReserva().getColuna();
-			dados[i][5] = (ingresso.isMeia()) ? ingresso.getPreco()/2 : ingresso.getPreco();
+			dados[i][5] = (ingresso.isMeia()) ? ingresso.getPreco() / 2 : ingresso.getPreco();
 			i++;
 		}
-		//povoar tabela aqui
-		return new JTable(dados, colunas);	
+		// povoar tabela aqui
+		return new JTable(dados, colunas);
 
 	}
 }

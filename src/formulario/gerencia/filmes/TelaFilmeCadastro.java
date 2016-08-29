@@ -46,7 +46,6 @@ public class TelaFilmeCadastro extends TelaFilmeCadastroControles {
 					if (nome.isEmpty())
 						throw new IllegalArgumentException("O nome do filme não pode ser vazio!");
 
-					// TODO Implementar código para salvar filme no BD
 					FilmesManager.criarFilme(nome, sinopse, imagem, duracao);
 					JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "
 							+ duracao + "\nImagem: " + imagem);

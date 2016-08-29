@@ -34,7 +34,9 @@ public class CopiarArquivo {
 	 */
 	public static File CopiaParaMeusDocumentos(File origem) {		
 		try {
-		File destino = new File(arquivoDestinoPath + File.separator + origem.getName()+".jpg");
+			
+			File destino = new File(arquivoDestinoPath + File.separator + origem.getName()+".jpg");
+			destino.getParentFile().mkdirs(); // Cria diretório
 			BufferedImage originalImage = ImageIO.read(origem);
 			int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
 
