@@ -30,9 +30,6 @@ public class Reserva {
 
 	@Column
 	private boolean reservado;
-	
-	@OneToOne
-	private Ingresso ingresso;
 
 
 	/**
@@ -49,6 +46,10 @@ public class Reserva {
 		this.sessao = sessao;
 		this.coluna = coluna;
 		this.linha = linha;
+	}
+	
+	public Reserva() {
+		
 	}
 
 	public int getId() {
@@ -85,15 +86,5 @@ public class Reserva {
 
 	public void setReservado(boolean reservado) {
 		this.reservado = reservado;
-	}
-	
-	public Ingresso getIngresso() {
-		return ingresso;
-	}
-
-	public void setIngresso(Ingresso ingresso) {
-		this.ingresso = ingresso;
-	}
-	
-	
+	}	
 }

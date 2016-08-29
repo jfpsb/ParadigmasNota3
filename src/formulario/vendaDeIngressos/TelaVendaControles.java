@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,12 +19,14 @@ import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
 import entidades.Sessao;
+
 /**
  * Classe onde são configurados os controles da tela de escolha de sessões
+ * 
  * @author Paulo
  *
  */
-public class TelaVendaControles extends JFrame{
+public class TelaVendaControles extends JFrame {
 	/**
 	 * 
 	 */
@@ -31,31 +34,37 @@ public class TelaVendaControles extends JFrame{
 	protected JPanel panelPrincipal;
 	protected JPanel panelCenter;
 	private JPanel panelSuperior;
+	private JPanel panelInferior;
 	private JLabel lblData;
-	protected DateTimePicker datePicker;	
+	protected DateTimePicker datePicker;
 	protected List<Sessao> sessoes;
 	protected JTable tableSessoes;
 	protected Object[][] dados;
 	protected JScrollPane barraRolagem;
+	protected JButton btnFinalizar;
 	private DatePickerSettings dateSettings;
 	private TimePickerSettings timeSettings;
-	//mudar pra Filme.
+
+	// mudar pra Filme.
 	/**
 	 * Chama o método que inicializa os componentes da UI.
 	 */
-	public TelaVendaControles(){
+	public TelaVendaControles() {
 		super("Venda de Ingressos");
 		inicializarControles();
 	}
+
 	/**
 	 * Instancia e configura elementos da UI.
-	 * @param dateSettings 
-	 * @param timeSettings 
+	 * 
+	 * @param dateSettings
+	 * @param timeSettings
 	 */
 	private void inicializarControles() {
 		panelPrincipal = new JPanel(new BorderLayout());
 		panelSuperior = new JPanel(new FlowLayout());
-		panelCenter = new JPanel();		
+		panelInferior = new JPanel();
+		panelCenter = new JPanel();
 		dateSettings = new DatePickerSettings();
 		timeSettings = new TimePickerSettings();
 		dateSettings.setAllowEmptyDates(false);
@@ -63,44 +72,52 @@ public class TelaVendaControles extends JFrame{
 		datePicker = new DateTimePicker(dateSettings, timeSettings);
 		lblData = new JLabel("Data da Sessão: ");
 		lblData.setFont(lblData.getFont().deriveFont(16F));
-		
-		//panelSuperior
+		btnFinalizar = new JButton("Finalizar Compra");
+		btnFinalizar.setFont(btnFinalizar.getFont().deriveFont(24F));
+
+		// panelSuperior
 		panelSuperior.add(lblData);
 		panelSuperior.add(datePicker);
-		
-		//panelPrincipal
+
+		// panelInferior
+		panelInferior.add(btnFinalizar);
+
+		// panelPrincipal
 		panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
-		//panelPrincipal.add(panelCenter, BorderLayout.CENTER);
-		
-		//tela
+		panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
+
+		// tela
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setMinimumSize(new Dimension(1280, 720));
-		//this.pack();
+		// this.pack();
 		this.setLocationRelativeTo(null);
 		this.add(panelPrincipal);
 	}
+
 	/**
 	 * Abre tela.
 	 */
 	public void mostrarTela() {
 		this.setVisible(true);
 	}
+
 	/**
 	 * Ajusta a Altura da primeira linha da tabela
+	 * 
 	 * @param table
 	 */
 	protected void updateRowHeights(JTable table) {
 		int rowIndex = 0;
-        int tallestCellHeight = 0;
-        for (int columnIndex = 0; columnIndex < table.getColumnCount(); ++columnIndex) {
-            TableCellRenderer cellRenderer = table.getCellRenderer(rowIndex, columnIndex);
-            Component cellContent = table.prepareRenderer(cellRenderer, rowIndex, columnIndex);
-            int cellHeight = cellContent.getPreferredSize().height;
-            tallestCellHeight = Math.max(tallestCellHeight, cellHeight);
-        }
- 
-        if (tallestCellHeight != table.getRowHeight(rowIndex)) {
-            table.setRowHeight(rowIndex, tallestCellHeight);
-        }
-    }
+		int tallestCellHeight = 0;
+		for (int columnIndex = 0; columnIndex < table.getColumnCount(); ++columnIndex) {
+			TableCellRenderer cellRenderer = table.getCellRenderer(rowIndex, columnIndex);
+			Component cellContent = table.prepareRenderer(cellRenderer, rowIndex, columnIndex);
+			int cellHeight = cellContent.getPreferredSize().height;
+			tallestCellHeight = Math.max(tallestCellHeight, cellHeight);
+		}
+
+		if (tallestCellHeight != table.getRowHeight(rowIndex)) {
+			table.setRowHeight(rowIndex, tallestCellHeight);
+		}
+	}
 }
