@@ -21,8 +21,8 @@ public class CopiarArquivo {
 	private static final String meusDocumentosPath = new JFileChooser().getFileSystemView().getDefaultDirectory()
 			.toString();
 	private static final String arquivoDestinoPath = meusDocumentosPath + File.separator + "Cinema Paradigmas";
-	private static int height  = 200;
-	private static int width = 200;
+	private static int height  = 400;
+	private static int width = 266;
 	/**
 	 * Copia o arquivo passado para a pasta do sistema em Meus Documentos.
 	 * 
