@@ -60,9 +60,20 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		btnDeletarSelecao.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent arg0) {					
-				FilmesManager.removerFilme(getSelectedMovie(ONLYSHOW));
-				createTable();
+			public void actionPerformed(ActionEvent arg0) {		
+				try{
+					if(FilmesManager.removerFilme(getSelectedMovie(ONLYSHOW))){
+						JOptionPane.showMessageDialog(null, "Removido com sucesso");
+						createTable();
+					}else{
+						JOptionPane.showMessageDialog(null, "Verifique se não existe alguma sessão usando esse filme",
+								"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
+					}
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Erro Desconhecido. Tente Reiniciar o Programa",
+							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		btnAlterarSelecao.addActionListener(new ActionListener() {
@@ -70,6 +81,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {												
 				FilmesManager.atualizarFilme(getSelectedMovie(EDITSELECTED));
+				JOptionPane.showMessageDialog(null, "Editado com sucesso");
 				createTable();				
 			}
 		});
@@ -84,7 +96,9 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		if (frame != null && (frame.isVisible() || frame.isDisplayable()))
 			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
-
+	/**
+	 * Cria uma tabela para mostrar os filmes cadastrados.
+	 */
 	@Override
 	public void createTable() {
 		//Esse teste é feito porque no começo do programa, não há como remover.
@@ -126,8 +140,10 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 	}
 	/**
 	 * Mostra o selecionado, e caso necessário edita este
+	 * @param code se devemos ou não editar os dados
+	 * @return o filme selecionado
 	 */
-	private Filme getSelectedMovie(int code){
+	private Filme getSelectedMovie(int code)throws ArrayIndexOutOfBoundsException{
 		int row = tableEntidade.getSelectedRow();
 		String nome = dados[row][0].toString();
 		String sinopse = dados[row][1].toString();
@@ -138,7 +154,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		}catch(NumberFormatException e){
 			duracao = 0;
 		}
-		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
+		
 		Filme filme = filmes.get(row);
 		if(code == EDITSELECTED){
 			filme.setNome(nome);

@@ -75,6 +75,9 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 		});
 		btnAlterarSelecao.setEnabled(false);
 	}
+	/**
+	 * Cria a tabela que mostra as sessões cadastradas
+	 */
 	@Override
 	public void createTable() {
 		//Esse teste é feito porque no começo do programa, não há como remover.
@@ -111,6 +114,10 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 	public String retornaNomeTipoEntidade() {
 		return "Sessões";
 	}
+	/**
+	 * Retorna a sessão selecionada
+	 * @return Retorna a sessão selecionada
+	 */
 	private Sessao getSelectedSessao(){
 		return sessoes.get(tableEntidade.getSelectedRow());
 	}

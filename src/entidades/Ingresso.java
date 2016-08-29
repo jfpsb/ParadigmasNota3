@@ -23,7 +23,7 @@ public class Ingresso {
 	private Funcionario funcionario;
 
 	@ManyToOne
-	private Filme filme;
+	private Sessao sessao;
 
 	@OneToOne
 	private Reserva reserva;
@@ -52,11 +52,15 @@ public class Ingresso {
 	 * @param preco
 	 *            Preço do ingresso.
 	 */
-	public Ingresso(Funcionario funcionario, Filme filme, boolean meia, double preco) {
+	public Ingresso(Funcionario funcionario, Sessao sessao, boolean meia, double preco) {
 		this.funcionario = funcionario;
-		this.filme = filme;
+		this.sessao = sessao;
 		this.meia = meia;
 		this.preco = preco;
+	}
+	
+	public Ingresso() {
+		
 	}
 
 	public int getId() {
@@ -71,12 +75,12 @@ public class Ingresso {
 		this.funcionario = funcionario;
 	}
 
-	public Filme getFilme() {
-		return filme;
+	public Sessao getSessao() {
+		return sessao;
 	}
 
-	public void setFilme(Filme filme) {
-		this.filme = filme;
+	public void setSessao(Sessao sessao) {
+		this.sessao = sessao;
 	}
 
 	public Reserva getReserva() {

@@ -30,6 +30,7 @@ public class TelaPrincipalControles extends JFrame {
 	private JLabel lblCinemaParadigmas;
 	protected JButton btnGerencia;
 	protected JButton btnVendas;
+	protected JButton btnExport;
 
 	/**
 	 * Chama o método que inicializa os componentes da UI.
@@ -45,11 +46,12 @@ public class TelaPrincipalControles extends JFrame {
 	private void inicializarControles() {
 		panelPrincipal = new JPanel(new BorderLayout());
 		panelMenuEsquerda = new JPanel();
-		panelMenuEsquerda2 = new JPanel(new GridLayout(2, 1, 10, 10));
+		panelMenuEsquerda2 = new JPanel(new GridLayout(3, 1, 10, 10));
 		lblOpcoes = new JLabel("Opções", SwingConstants.CENTER);
 		lblCinemaParadigmas = new JLabel("Cinema Paradigmas", SwingConstants.CENTER);
 		btnVendas = new JButton("Venda De Ingressos");
 		btnGerencia = new JButton("Gerência");
+		btnExport = new JButton("Relatório de Vendas");
 
 		// lblOpcoes
 		lblOpcoes.setFont(lblOpcoes.getFont().deriveFont(24F));
@@ -63,10 +65,14 @@ public class TelaPrincipalControles extends JFrame {
 
 		// btnFilmes
 		btnGerencia.setFont(btnGerencia.getFont().deriveFont(26F));
+		
+		//btnExport
+		btnExport.setFont(btnGerencia.getFont().deriveFont(26F));
 
 		// panelMenuEsquerda2
 		panelMenuEsquerda2.add(btnVendas);
 		panelMenuEsquerda2.add(btnGerencia);
+		panelMenuEsquerda2.add(btnExport);
 		panelMenuEsquerda2.setBackground(new Color(204, 255, 255));
 
 		// panelMenuEsquerda

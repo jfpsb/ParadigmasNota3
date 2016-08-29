@@ -14,6 +14,8 @@ import util.DAO;
  */
 public class FuncionarioManager {
 	private static DAO<Funcionario> dao = new DAO<Funcionario>(Funcionario.class);
+	private static boolean listChanged = true;
+	private static List<Funcionario> funcionarios = null;
 
 	/**
 	 * Cria um funcionário e adiciona ao banco.
@@ -26,6 +28,7 @@ public class FuncionarioManager {
 		if (!nome.isEmpty()) {
 			Funcionario funcionario = new Funcionario(nome);
 			dao.salva(funcionario);
+			listChanged = true;
 			return true;
 		}
 
@@ -40,6 +43,7 @@ public class FuncionarioManager {
 	 */
 	public static void removerFuncionario(Funcionario f) {
 		dao.remover(f);
+		listChanged = true;
 	}
 
 	/**
@@ -50,6 +54,7 @@ public class FuncionarioManager {
 	 */
 	public static void atualizarFuncionario(Funcionario f) {
 		dao.atualizar(f);
+		listChanged = true;
 	}
 
 	/**
@@ -58,7 +63,9 @@ public class FuncionarioManager {
 	 * @return Lista de funcionários.
 	 */
 	public static List<Funcionario> listarFuncionarios() {
-		return dao.listar();
+		if(listChanged) funcionarios = dao.listar();
+		listChanged = false;
+		return funcionarios;
 	}
 
 	/**
@@ -68,7 +75,7 @@ public class FuncionarioManager {
 	 *            Elemento a ser buscado
 	 * @return Lista de elemento que contem o texto em questão
 	 */
-	private static List<Funcionario> buscarFuncionario(String texto) {
+	public static List<Funcionario> buscarFuncionario(String texto) {
 		List<Funcionario> aux = new ArrayList<Funcionario>();
 		for (Funcionario f : listarFuncionarios()) {
 			if (f.getNome().contains(texto))
