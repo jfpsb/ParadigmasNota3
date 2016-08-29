@@ -96,7 +96,9 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		if (frame != null && (frame.isVisible() || frame.isDisplayable()))
 			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
-
+	/**
+	 * Cria uma tabela para mostrar os filmes cadastrados.
+	 */
 	@Override
 	public void createTable() {
 		//Esse teste é feito porque no começo do programa, não há como remover.
@@ -133,6 +135,8 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 	}
 	/**
 	 * Mostra o selecionado, e caso necessário edita este
+	 * @param code se devemos ou não editar os dados
+	 * @return o filme selecionado
 	 */
 	private Filme getSelectedMovie(int code)throws ArrayIndexOutOfBoundsException{
 		int row = tableEntidade.getSelectedRow();

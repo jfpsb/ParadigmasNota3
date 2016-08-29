@@ -79,6 +79,9 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			}
 		});
 	}
+	/**
+	 * Cria uma tabela para mostrar as salas cadastrados.
+	 */
 	@Override
 	public void createTable() {
 		//Esse teste é feito porque no começo do programa, não há como remover.
@@ -109,6 +112,11 @@ public class TelaSala extends TelaBaseEntidadeControles {
 		this.validate();
 		this.repaint();
 	}
+	/**
+	 * Retorna a sala selecionada
+	 * @param code se devemos ou não editar os dados
+	 * @return a sala selecionada
+	 */
 	private Sala getSelectedSala(int code){
 		int row = tableEntidade.getSelectedRow();
 		String nome = dados[row][0].toString();

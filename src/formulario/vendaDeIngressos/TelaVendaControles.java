@@ -18,7 +18,11 @@ import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 
 import entidades.Sessao;
-
+/**
+ * Classe onde são configurados os controles da tela de escolha de sessões
+ * @author Paulo
+ *
+ */
 public class TelaVendaControles extends JFrame{
 	/**
 	 * 
@@ -81,6 +85,10 @@ public class TelaVendaControles extends JFrame{
 	public void mostrarTela() {
 		this.setVisible(true);
 	}
+	/**
+	 * Ajusta a Altura da primeira linha da tabela
+	 * @param table
+	 */
 	protected void updateRowHeights(JTable table) {
 		int rowIndex = 0;
         int tallestCellHeight = 0;

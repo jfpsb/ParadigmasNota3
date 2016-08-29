@@ -17,13 +17,19 @@ import com.github.lgooddatepicker.zinternaltools.DateTimeChangeEvent;
 
 import aplicacao.manager.SessaoManager;
 import entidades.Sessao;
-
+/**
+ * Tela que mostra as sessões cadastradas. Nela o usuário pode escolher a sessão para comprar um ingresso.
+ * @author Paulo
+ *
+ */
 public class TelaVenda extends TelaVendaControles{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * É chamado o construtor da superclasse, que inicializa os controles e adicionado um evento ao DateTime.
+	 */
 	public TelaVenda(){
 		super();		
 		
@@ -36,7 +42,9 @@ public class TelaVenda extends TelaVendaControles{
 		});
 		geraTabela();
 	}
-
+	/**
+	 * Mostra as Sessões disponíveis na data escolhida
+	 */
 	private void geraTabela() {
 		try{
 			panelPrincipal.remove(barraRolagem);

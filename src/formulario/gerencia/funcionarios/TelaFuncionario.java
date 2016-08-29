@@ -84,6 +84,9 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 		if (frame != null && (frame.isVisible() || frame.isDisplayable()))
 			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
+	/**
+	 * Cria uma tabela para mostrar os funcionários cadastrados.
+	 */
 	@Override
 	public void createTable() {
 		//Esse teste é feito porque no começo do programa, não há como remover.
@@ -113,6 +116,8 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 	}
 	/**
 	 * Mostra o selecionado, e caso necessário edita este
+	 * @param code se devemos ou não editar os dados
+	 * @return o funcionario selecionado.
 	 */
 	private Funcionario getSelectedFuncionario(int code){
 		int row = tableEntidade.getSelectedRow();
