@@ -41,10 +41,15 @@ public class FilmesManager {
 	  * Recebe uma entidade de filme e remove do Banco.
 	  * 
 	  * @param filme   Entidade de Filme.
+	  * @return Verdadeiro se o filme foi removido
 	  */
-	public static void removerFilme(Filme filme){		
+	public static boolean removerFilme(Filme filme){
+		if(SessaoManager.listarSessaoPorFilme(filme).size() > 0){
+			return false;
+		}
 		dao.remover(filme);
 		listChanged = true;
+		return true;
 	}
 	
 	/**
