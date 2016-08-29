@@ -1,5 +1,6 @@
 package aplicacao.manager;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,10 +167,10 @@ public class SessaoManager {
 	 *            Data a ser pesquisada
 	 * @return Lista com Sessao
 	 */
-	public static List<Sessao> listarSessaoPorDia(LocalDateTime data) {
+	public static List<Sessao> listarSessaoPorDia(LocalDate data) {
 		List<Sessao> aux = new ArrayList<Sessao>();
 		for (Sessao sessao : listarSessao()) {
-			if (sessao.getData().toLocalDate().compareTo(data.toLocalDate()) == 0) {
+			if (sessao.getData().toLocalDate().compareTo(data) == 0) {
 				aux.add(sessao);
 			}
 		}

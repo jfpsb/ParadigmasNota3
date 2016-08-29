@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
@@ -36,7 +37,7 @@ public class TelaVendaControles extends JFrame {
 	private JPanel panelSuperior;
 	private JPanel panelInferior;
 	private JLabel lblData;
-	protected DateTimePicker datePicker;
+	protected DatePicker datePicker;
 	protected List<Sessao> sessoes;
 	protected JTable tableSessoes;
 	protected Object[][] dados;
@@ -68,8 +69,8 @@ public class TelaVendaControles extends JFrame {
 		dateSettings = new DatePickerSettings();
 		timeSettings = new TimePickerSettings();
 		dateSettings.setAllowEmptyDates(false);
-		timeSettings.setAllowEmptyTimes(false);
-		datePicker = new DateTimePicker(dateSettings, timeSettings);
+		//timeSettings.setAllowEmptyTimes(false);
+		datePicker = new DatePicker(dateSettings);
 		lblData = new JLabel("Data da Sessão: ");
 		lblData.setFont(lblData.getFont().deriveFont(16F));
 		btnFinalizar = new JButton("Finalizar Compra");

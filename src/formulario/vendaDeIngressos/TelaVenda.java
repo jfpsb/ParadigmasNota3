@@ -6,7 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -16,7 +18,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import com.github.lgooddatepicker.optionalusertools.DateChangeListener;
 import com.github.lgooddatepicker.optionalusertools.DateTimeChangeListener;
+import com.github.lgooddatepicker.zinternaltools.DateChangeEvent;
 import com.github.lgooddatepicker.zinternaltools.DateTimeChangeEvent;
 
 import aplicacao.manager.SessaoManager;
@@ -42,11 +46,12 @@ public class TelaVenda extends TelaVendaControles {
 	public TelaVenda() {
 		super();
 
-		datePicker.addDateTimeChangeListener(new DateTimeChangeListener() {
-
+		datePicker.addDateChangeListener(new DateChangeListener() {
+			
 			@Override
-			public void dateOrTimeChanged(DateTimeChangeEvent arg0) {
+			public void dateChanged(DateChangeEvent arg0) {
 				geraTabela();
+				
 			}
 		});
 
@@ -81,8 +86,8 @@ public class TelaVenda extends TelaVendaControles {
 		} catch (Exception e) {
 			// Do nothing
 		}
-		LocalDateTime data = datePicker.getDateTimeStrict();
-		sessoes = SessaoManager.listarSessaoPorHorario(data);
+		LocalDate data = datePicker.getDate();
+		sessoes = SessaoManager.listarSessaoPorDia(data);
 		if (!sessoes.isEmpty()) {
 			String[] colunas = new String[sessoes.size()];
 			dados = new Object[5][sessoes.size()];
