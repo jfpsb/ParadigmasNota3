@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -18,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -29,6 +33,7 @@ import entidades.Reserva;
 import entidades.Sessao;
 
 public class TelaFinalizarVendaControles extends JDialog {
+	private SpringLayout springLayout;
 
 	private JPanel panelPrincipal;
 	private JPanel panelSessaoEscolhida;
@@ -46,6 +51,7 @@ public class TelaFinalizarVendaControles extends JDialog {
 	private JLabel lblPreco;
 	private JLabel lblFuncionario;
 	private JLabel lblMeia;
+	private JLabel lblReservasRestantes;
 
 	protected JButton btnFinalizar;
 
@@ -77,10 +83,12 @@ public class TelaFinalizarVendaControles extends JDialog {
 			funcionariosArray[i] = funcionarios.get(i).getNome();
 		}
 
+		springLayout = new SpringLayout();
+
 		panelPrincipal = new JPanel(new BorderLayout());
 		panelSuperior = new JPanel(new BorderLayout());
 		panelSuperior2 = new JPanel();
-		panelInferior2 = new JPanel();
+		panelInferior2 = new JPanel(springLayout);
 		panelSessaoEscolhida = new JPanel(new GridLayout(2, 3, 5, 5));
 		panelInferior = new JPanel(new BorderLayout());
 
@@ -96,6 +104,7 @@ public class TelaFinalizarVendaControles extends JDialog {
 		lblPreco = new JLabel("Preço: " + retornaValorEmCelula(sessaoEscolhida.getPreco()));
 		lblFuncionario = new JLabel("Funcionário: ");
 		lblMeia = new JLabel("Meia: ");
+		lblReservasRestantes = new JLabel("Reservas Restantes: " + SessaoManager.reservasRestantes(sessaoEscolhida));
 
 		btnFinalizar = new JButton("Finalizar");
 
@@ -106,10 +115,11 @@ public class TelaFinalizarVendaControles extends JDialog {
 		configuraTamanhoLetras(lblLegendado, 20F);
 		configuraTamanhoLetras(lbl3D, 20F);
 		configuraTamanhoLetras(lblPreco, 20F);
-		configuraTamanhoLetras(lblFuncionario, 20F);
-		configuraTamanhoLetras(lblMeia, 20F);
-		configuraTamanhoLetras(cmbFuncionarios, 20F);
+		configuraTamanhoLetras(lblFuncionario, 24F);
+		configuraTamanhoLetras(lblMeia, 24F);
+		configuraTamanhoLetras(cmbFuncionarios, 22F);
 		configuraTamanhoLetras(btnFinalizar, 28F);
+		configuraTamanhoLetras(lblReservasRestantes, 20F);
 
 		btnFinalizar.setPreferredSize(new Dimension(150, 180));
 
@@ -126,9 +136,25 @@ public class TelaFinalizarVendaControles extends JDialog {
 		panelSuperior.add(panelSessaoEscolhida, BorderLayout.CENTER);
 		panelSuperior.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 
+		springLayout.putConstraint(SpringLayout.WEST, lblReservasRestantes, 15, SpringLayout.WEST, panelInferior2);
+		springLayout.putConstraint(SpringLayout.NORTH, lblReservasRestantes, 10, SpringLayout.NORTH, panelInferior2);
+
+		springLayout.putConstraint(SpringLayout.WEST, lblFuncionario, 50, SpringLayout.EAST, lblReservasRestantes);
+		springLayout.putConstraint(SpringLayout.NORTH, lblFuncionario, 90, SpringLayout.NORTH, panelInferior2);
+
+		springLayout.putConstraint(SpringLayout.WEST, lblMeia, 35, SpringLayout.EAST, cmbFuncionarios);
+		springLayout.putConstraint(SpringLayout.NORTH, lblMeia, 90, SpringLayout.NORTH, panelInferior2);
+
+		springLayout.putConstraint(SpringLayout.WEST, cmbFuncionarios, 10, SpringLayout.EAST, lblFuncionario);
+		springLayout.putConstraint(SpringLayout.NORTH, cmbFuncionarios, 85, SpringLayout.NORTH, panelInferior2);
+
+		springLayout.putConstraint(SpringLayout.WEST, chkMeia, 15, SpringLayout.EAST, lblMeia);
+		springLayout.putConstraint(SpringLayout.NORTH, chkMeia, 95, SpringLayout.NORTH, panelInferior2);
+
+		panelInferior2.add(lblReservasRestantes);
 		panelInferior2.add(lblFuncionario);
-		panelInferior2.add(cmbFuncionarios);
 		panelInferior2.add(lblMeia);
+		panelInferior2.add(cmbFuncionarios);
 		panelInferior2.add(chkMeia);
 
 		panelInferior.add(btnFinalizar, BorderLayout.EAST);
@@ -143,8 +169,8 @@ public class TelaFinalizarVendaControles extends JDialog {
 		for (int i = 0; i < sessaoEscolhida.getSala().getnLin(); i++) {
 			for (int j = 0; j < sessaoEscolhida.getSala().getnCol(); j++) {
 				data[i][j] = poltronaLivreImg;
-				for (Reserva r : SessaoManager.listarReservas()) {
-					if (r.getLinha() == i && r.getColuna() == j) {
+				for (Reserva r : SessaoManager.listarReservasDaSessao(sessaoEscolhida)) {
+					if (r.getLinha() == i && r.getColuna() == j && r.isReservado()) {
 						data[i][j] = poltronaOcupadaImg;
 						break;
 					}
@@ -160,20 +186,32 @@ public class TelaFinalizarVendaControles extends JDialog {
 			public Class getColumnClass(int column) {
 				return getValueAt(0, column).getClass();
 			}
-			
+
 			@Override
-		    public boolean isCellEditable(int row, int column) {
-		       //all cells false
-		       return false;
-		    }
+			public boolean isCellEditable(int row, int column) {
+				// all cells false
+				return false;
+			}
 		};
 
-		tabelaPoltrona.setTableHeader(null);
-		tabelaPoltrona.setRowHeight(50);
+		for (int i = 0; i < tabelaPoltrona.getColumnCount(); i++) {
+			tabelaPoltrona.getColumnModel().getColumn(i).setMinWidth(40);
+		}
+		
+		if(tabelaPoltrona.getColumnCount() >= 32) {
+			tabelaPoltrona.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		}
+		else {
+			tabelaPoltrona.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		}
+
+		tabelaPoltrona.setRowHeight(40);
+		tabelaPoltrona.setMaximumSize(new Dimension(1280,720));
 		tabelaPoltrona.setPreferredScrollableViewportSize(tabelaPoltrona.getPreferredSize());
 
 		panelPrincipal.add(panelSuperior, BorderLayout.NORTH);
-		panelPrincipal.add(new JScrollPane(tabelaPoltrona), BorderLayout.CENTER);
+		panelPrincipal.add(new JScrollPane(tabelaPoltrona, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), BorderLayout.CENTER);
 		panelPrincipal.add(panelInferior, BorderLayout.SOUTH);
 
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -207,6 +245,14 @@ public class TelaFinalizarVendaControles extends JDialog {
 				return "Sim";
 			else
 				return "Não";
+		}
+		
+		if(obj instanceof LocalDateTime) {
+			LocalDateTime obj2 = (LocalDateTime)obj;
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+			String formattedDateTime = obj2.format(formatter); // "1986-04-08 12:30"
+			return formattedDateTime;
 		}
 
 		return obj.toString();
