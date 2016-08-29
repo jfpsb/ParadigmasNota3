@@ -64,8 +64,13 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				try{
 				SalasManager.removerSala(getSelectedSala(ONLYSHOW));
 				createTable();
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});
@@ -73,8 +78,13 @@ public class TelaSala extends TelaBaseEntidadeControles {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				SalasManager.atualizarSala(getSelectedSala(EDITSELECTED));
-				createTable();	
+				try{
+					SalasManager.atualizarSala(getSelectedSala(EDITSELECTED));
+					createTable();	
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao alterar!", JOptionPane.ERROR_MESSAGE);
+				}
 				
 			}
 		});
@@ -117,7 +127,7 @@ public class TelaSala extends TelaBaseEntidadeControles {
 	 * @param code se devemos ou não editar os dados
 	 * @return a sala selecionada
 	 */
-	private Sala getSelectedSala(int code){
+	private Sala getSelectedSala(int code)throws ArrayIndexOutOfBoundsException{
 		int row = tableEntidade.getSelectedRow();
 		String nome = dados[row][0].toString();
 		int l, c;

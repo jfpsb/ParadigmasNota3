@@ -27,7 +27,7 @@ import outrasclasses.ChecarTela;
  * @author jfpsb
  *
  */
-public class TelaSessao extends TelaBaseEntidadeControles {
+public class TelaSessao extends TelaBaseEntidadeControles{
 	private static final long serialVersionUID = 1L;
 
 	private TelaSessaoCadastro cadastrarSessao;
@@ -63,14 +63,19 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(!SessaoManager.removerSessao(getSelectedSessao(), false)){
-					JOptionPane.showMessageDialog(null,  "Erro ao remover sessao. Ela deve ter reservas!", "Erro ao Remover",
-							JOptionPane.ERROR_MESSAGE);
-					return ;
+				try{
+					if(!SessaoManager.removerSessao(getSelectedSessao(), false)){
+						JOptionPane.showMessageDialog(null,  "Erro ao remover sessao. Ela deve ter reservas!", "Erro ao Remover",
+								JOptionPane.ERROR_MESSAGE);
+						return ;
+					}
+					createTable();
+					JOptionPane.showMessageDialog(null, "Removido", "Removido com Sucesso",
+							JOptionPane.INFORMATION_MESSAGE);
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
 				}
-				createTable();
-				JOptionPane.showMessageDialog(null, "Removido", "Removido com Sucesso",
-						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		btnAlterarSelecao.setEnabled(false);
@@ -118,7 +123,7 @@ public class TelaSessao extends TelaBaseEntidadeControles {
 	 * Retorna a sessão selecionada
 	 * @return Retorna a sessão selecionada
 	 */
-	private Sessao getSelectedSessao(){
+	private Sessao getSelectedSessao() throws ArrayIndexOutOfBoundsException{
 		return sessoes.get(tableEntidade.getSelectedRow());
 	}
 }

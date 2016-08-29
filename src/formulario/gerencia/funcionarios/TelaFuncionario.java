@@ -61,16 +61,26 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				try{
 				FuncionarioManager.removerFuncionario(getSelectedFuncionario(ONLYSHOW));
 				createTable();
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		});
 		btnAlterarSelecao.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try{
 				FuncionarioManager.atualizarFuncionario(getSelectedFuncionario(EDITSELECTED));
-				createTable();				
+				createTable();
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao alterar!", JOptionPane.ERROR_MESSAGE);
+				}				
 			}
 		});
 	}
@@ -119,7 +129,7 @@ public class TelaFuncionario extends TelaBaseEntidadeControles {
 	 * @param code se devemos ou não editar os dados
 	 * @return o funcionario selecionado.
 	 */
-	private Funcionario getSelectedFuncionario(int code){
+	private Funcionario getSelectedFuncionario(int code)throws ArrayIndexOutOfBoundsException{
 		int row = tableEntidade.getSelectedRow();
 		String nome = dados[row][0].toString();			
 		JOptionPane.showMessageDialog(null, "Nome: "+nome);

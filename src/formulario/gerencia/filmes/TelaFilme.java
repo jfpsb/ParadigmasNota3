@@ -70,7 +70,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 								"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
 					}
 				}catch(ArrayIndexOutOfBoundsException ec){
-					JOptionPane.showMessageDialog(null, "Erro Desconhecido. Tente Reiniciar o Programa",
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
 							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
 				}
 				
@@ -79,10 +79,16 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		btnAlterarSelecao.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {												
-				FilmesManager.atualizarFilme(getSelectedMovie(EDITSELECTED));
-				JOptionPane.showMessageDialog(null, "Editado com sucesso");
-				createTable();				
+			public void actionPerformed(ActionEvent e) {
+				try{
+					FilmesManager.atualizarFilme(getSelectedMovie(EDITSELECTED));
+					JOptionPane.showMessageDialog(null, "Editado com sucesso");
+					createTable();	
+				}catch(ArrayIndexOutOfBoundsException ec){
+					JOptionPane.showMessageDialog(null, "Selecione Uma Entidade",
+							"Erro ao alterar!", JOptionPane.ERROR_MESSAGE);
+				}
+							
 			}
 		});
 	}
