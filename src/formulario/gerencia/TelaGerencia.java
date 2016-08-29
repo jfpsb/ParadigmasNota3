@@ -151,4 +151,5 @@ public class TelaGerencia extends TelaGerenciaControles {
 		if (internalFrame != null && (internalFrame.isVisible() || internalFrame.isDisplayable()))
 			throw new TelaAbertaException("Uma instância desta tela já está aberta.");
 	}
+	
 }

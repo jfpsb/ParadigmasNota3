@@ -23,6 +23,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/hibernate-entitymanager-4.3.7.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/LGoodDatePicker-7.6.3-javadoc.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/LGoodDatePicker-7.6.3.jar"/>
-	<classpathentry kind="lib" path="libs/poi-3.14-20160307.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/poi-3.14-20160307.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
