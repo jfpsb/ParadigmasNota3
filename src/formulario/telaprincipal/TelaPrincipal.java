@@ -139,7 +139,7 @@ public class TelaPrincipal extends TelaPrincipalControles {
 	private static JTable createTableIngresso() {
 		// Esse teste é feito porque no começo do programa, não há como remover.
 
-		String[] colunas = { "Filme", "Sessao", "3D", "Legendado", "Poltrona", "Preço" };
+		String[] colunas = { "Filme", "Sessao", "3D", "Legendado", "Poltrona","Funcionario", "Preço" };
 		List<Ingresso> ingressos = SessaoManager.listarIngresso();
 		Object[][] dados = new Object[ingressos.size()][colunas.length];
 		int i = 0;
@@ -149,7 +149,8 @@ public class TelaPrincipal extends TelaPrincipalControles {
 			dados[i][2] = ingresso.getReserva().getSessao().isIs3D();
 			dados[i][3] = ingresso.getReserva().getSessao().isLegendado();
 			dados[i][4] = "L: " + ingresso.getReserva().getLinha() + " C: " + ingresso.getReserva().getColuna();
-			dados[i][5] = (ingresso.isMeia()) ? ingresso.getPreco() / 2 : ingresso.getPreco();
+			dados[i][5] = ingresso.getFuncionario().getNome();
+			dados[i][6] =  ingresso.getPreco();
 			i++;
 		}
 		// povoar tabela aqui
