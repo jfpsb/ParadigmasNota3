@@ -61,8 +61,14 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {					
-				FilmesManager.removerFilme(getSelectedMovie(ONLYSHOW));
-				createTable();
+				if(FilmesManager.removerFilme(getSelectedMovie(ONLYSHOW))){
+					JOptionPane.showMessageDialog(null, "Removido com sucesso");
+					createTable();
+				}else{
+					JOptionPane.showMessageDialog(null, "Verifique se não existe alguma sessão usando esse filme",
+							"Erro ao remover!", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
 		});
 		btnAlterarSelecao.addActionListener(new ActionListener() {
@@ -70,6 +76,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			@Override
 			public void actionPerformed(ActionEvent e) {												
 				FilmesManager.atualizarFilme(getSelectedMovie(EDITSELECTED));
+				JOptionPane.showMessageDialog(null, "Editado com sucesso");
 				createTable();				
 			}
 		});
@@ -133,7 +140,7 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 		}catch(NumberFormatException e){
 			duracao = 0;
 		}
-		JOptionPane.showMessageDialog(null, "Nome: " + nome + "\nSinopse: " + sinopse + "\nDuração: "+ duracao + "\nImagem: " + imagem);
+		
 		Filme filme = filmes.get(row);
 		if(code == EDITSELECTED){
 			filme.setNome(nome);
