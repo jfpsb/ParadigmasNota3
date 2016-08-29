@@ -21,6 +21,10 @@ public class SessaoManager {
 	private static DAO<Sessao> daoSessao = new DAO<Sessao>(Sessao.class);
 	private static DAO<Reserva> daoReserva = new DAO<Reserva>(Reserva.class);
 	private static DAO<Ingresso> daoIngresso = new DAO<Ingresso>(Ingresso.class);
+	private static List<Sessao> sessoes = null;
+	private static List<Reserva> reservas = null;
+	private static boolean sessoeslistChanged = true;
+	private static boolean reservaslistChanged = true;
 	
 	/**
 	 * Cria uma entidade de sessao, se não existirem conflitos de horario e sala, a 
@@ -44,6 +48,7 @@ public class SessaoManager {
 		
 		Sessao sessao = new Sessao(sala, filme, data, isLegendado, is3d, preco);
 		daoSessao.salva(sessao);
+		sessoeslistChanged = true;
 		return true;
 	}
 	
@@ -75,7 +80,7 @@ public class SessaoManager {
 		sessao.setLegendado(isLegendado);
 		sessao.setPreco(preco);
 		daoSessao.atualizar(sessao);
-		
+		sessoeslistChanged = true;
 		return true;
 	}
 	
@@ -90,6 +95,7 @@ public class SessaoManager {
 		if(ignorarReservas){
 			for (Reserva reserva : listarReservasDaSessao(sessao)) {
 				removerReserva(reserva);
+				reservaslistChanged = true;
 			}
 		}
 		else{
@@ -100,7 +106,7 @@ public class SessaoManager {
 		}
 		
 		daoSessao.remover(sessao);
-		
+		sessoeslistChanged = true;
 		return true;
 	}
 	
@@ -109,7 +115,9 @@ public class SessaoManager {
 	 * @return Lista as
 	 */
 	public static List<Sessao> listarSessao(){
-		return daoSessao.listar();
+		if(sessoeslistChanged) sessoes = daoSessao.listar();
+		sessoeslistChanged = false;
+		return sessoes;
 	}
 	
 	/**
@@ -218,6 +226,7 @@ public class SessaoManager {
 		
 		daoReserva.salva(reserva);
 		daoIngresso.salva(ingresso);
+		reservaslistChanged = true;
 		return true;
 	}
 	
@@ -227,7 +236,9 @@ public class SessaoManager {
 	 * @return Lista com as reservas
 	 */
 	public static List<Reserva> listarReservas(){
-		return daoReserva.listar();
+		if(reservaslistChanged) reservas = daoReserva.listar();
+		reservaslistChanged = false;
+		return reservas;
 	}
 	
 	/**
@@ -285,6 +296,7 @@ public class SessaoManager {
 	public static void removerReserva(Reserva reserva){
 		daoIngresso.remover(reserva.getIngresso());
 		daoReserva.remover(reserva);
+		reservaslistChanged = true;
 	}
 }
 	
