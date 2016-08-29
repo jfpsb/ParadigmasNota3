@@ -120,7 +120,16 @@ public class TelaFilme extends TelaBaseEntidadeControles {
 			dados[i][3] = f.getDuracao();
 			i++;
 		}
-		tableEntidade = new JTable(dados, colunas);	
+		tableEntidade = new JTable(dados, colunas){
+			public boolean isCellEditable(int row, int col)
+			{
+			    //If you didn't want the first column to be editable
+			    if(col == 2)
+			        return false;
+			    else
+			        return true;
+			}
+		};	
 		updateRowHeights(tableEntidade);
 		springLayout.putConstraint(SpringLayout.WEST, this, 0, SpringLayout.WEST, this);
 		springLayout.putConstraint(SpringLayout.NORTH, this, 0, SpringLayout.NORTH, this);
