@@ -113,7 +113,7 @@ public class SessaoManager {
 	}
 	
 	/**
-	 * Lista todas as sessao que ocorrem na data definida.
+	 * Lista todas as sessões que ocorrem na data definida.
 	 * @param data Data para ser pesquisada.
 	 * @return Lista com Sessao.
 	 */
@@ -123,6 +123,21 @@ public class SessaoManager {
 			LocalDateTime dataEnd = getLocalDateTimeDoFimDaSessao(sessao);
 			if ((sessao.getData().isBefore(data) && dataEnd.isAfter(data)) ||
 					sessao.getData().isEqual(data) || dataEnd.isEqual(data)){
+				aux.add(sessao);
+			}
+		}
+		return aux;
+	}
+	
+	/**
+	 * Lista todas as sessões do dia especifico
+	 * @param data Data a ser pesquisada
+	 * @return Lista com Sessao
+	 */
+	public static List<Sessao> listarSessaoPorDia(LocalDateTime data){
+		List<Sessao> aux = new ArrayList<Sessao>();
+		for (Sessao sessao : listarSessao()) {
+			if (sessao.getData().toLocalDate().compareTo(data.toLocalDate()) == 0) {
 				aux.add(sessao);
 			}
 		}

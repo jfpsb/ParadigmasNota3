@@ -13,6 +13,8 @@ import util.DAO;
 public class FilmesManager {
 	
 	private static DAO<Filme> dao = new DAO<Filme>(Filme.class);
+	private static boolean listChanged = true;
+	private static List<Filme> filmes = null;
 	/**
 	  * Cria uma entidade de Filme e persiste a mesma no banco.
 	  * 
@@ -29,6 +31,7 @@ public class FilmesManager {
 		if(duracao > 0 && !nome.isEmpty()){
 			Filme filme = new Filme(nome, sinopse, imagem, duracao);
 			dao.salva(filme);
+			listChanged = true;
 			return true;
 		}
 		return false;
@@ -39,8 +42,9 @@ public class FilmesManager {
 	  * 
 	  * @param filme   Entidade de Filme.
 	  */
-	public static void removerFilme(Filme filme){
+	public static void removerFilme(Filme filme){		
 		dao.remover(filme);
+		listChanged = true;
 	}
 	
 	/**
@@ -50,6 +54,7 @@ public class FilmesManager {
 	  */
 	public static void atualizarFilme(Filme filme){		
 		dao.atualizar(filme);
+		listChanged = true;
 	}
 	
 	/**
@@ -58,7 +63,9 @@ public class FilmesManager {
 	  * @return Lista de filmes.
 	  */
 	public static List<Filme> listarFilmes(){
-		return dao.listar();
+		if(listChanged) filmes = dao.listar();
+		listChanged = false;
+		return filmes;
 	}
 	
 	/**
@@ -66,7 +73,7 @@ public class FilmesManager {
 	 * @param texto Elemento a ser buscado
 	 * @return Lista de elemento que contem o texto em questão
 	 */
-	private static List<Filme> buscarFilme(String texto){
+	public static List<Filme> buscarFilme(String texto){
 		List<Filme> aux = new ArrayList<Filme> ();
 		for (Filme filme : listarFilmes()) {
 			if(filme.getNome().contains(texto))

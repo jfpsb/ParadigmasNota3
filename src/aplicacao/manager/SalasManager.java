@@ -12,6 +12,8 @@ import util.DAO;
 public class SalasManager {
 	
 	private static DAO<Sala> dao = new DAO<Sala>(Sala.class);
+	private static boolean listChanged = true;
+	private static List<Sala> salas = null;
 	
 	/**
 	 * Cria uma entidade de Sala e persiste no banco.
@@ -25,6 +27,7 @@ public class SalasManager {
 		if(nCol > 0  && nLin > 0){
 			Sala sala = new Sala(nome, nCol, nLin);
 			dao.salva(sala);
+			listChanged = true;
 			return true;
 		}
 		return false;
@@ -37,6 +40,7 @@ public class SalasManager {
 	 */
 	public static void removerSala(Sala sala){
 		dao.remover(sala);
+		listChanged = true;
 	}
 	
 	/**
@@ -45,6 +49,7 @@ public class SalasManager {
 	 */
 	public static void atualizarSala(Sala sala){
 		dao.atualizar(sala);
+		listChanged = true;
 	}
 	
 	/**
@@ -52,8 +57,9 @@ public class SalasManager {
 	 * @return Lista de salas salvas.
 	 */
 	public static List<Sala> listarSalas(){
-		return dao.listar();
+		if(listChanged) salas = dao.listar();
+		listChanged = false;
+		return salas;
 	}
-	//TODO: Listar Sala
 	
 }
